@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	}
 
 	/**
-	 * 闁告帗绻傞～鎰板礌閺夘槒ewpager
+	 * 
 	 */
 	private void initViewPager() {
 		this.viewpager = ((ViewPager) findViewById(R.id.viewpager));

@@ -29,7 +29,7 @@ import com.esirong.timer.DaoMaster;
 import com.esirong.timer.DaoMaster.DevOpenHelper;
 import com.esirong.timer.DaoSession;
 import com.esirong.timer.Task;
-import com.esirong.timer.TaskDao;
+import com.esirong.timer.db.AlertDao;
 
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -43,19 +43,12 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     private static final int COLUMN_ALERTED_DATE      = 1;
     private DaoMaster daoMaster;
 	private DaoSession daoSession;
-	private TaskDao taskDao;
+	private AlertDao taskDao;
 	private SQLiteDatabase db;
     @Override
     public void onReceive(Context context, Intent intent) {
         long currentDate = System.currentTimeMillis();
-        DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "AWEEK.db",
-				null);
-      
-		db = helper.getWritableDatabase();
-		daoMaster = new DaoMaster(db);
-		daoSession = daoMaster.newSession();
-		taskDao = daoSession.getTaskDao();
-		List<Task> list = taskDao.queryRaw(">? AND ", String.valueOf(currentDate));
+        List<Task> list = taskDao.findTask(currentDate);
 		for(Task task :list){
 			 long alertDate = task.getAlert_at();
              Intent sender = new Intent(context, AlarmReceiver.class);

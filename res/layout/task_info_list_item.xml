@@ -3,6 +3,7 @@
     xmlns:slide="http://schemas.android.com/apk/res/com.tjerkw.slideexpandable.library"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/bill_item_avatar_bg"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -131,22 +132,7 @@
         android:textSize="12.0sp"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@id/TaskListDivide"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="1.0px"
-            android:background="@color/bill_deal_itembg_line_bottom1" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="1.0px"
-            android:background="@android:color/white" />
-    </LinearLayout>
+    
     
 <!-- 扩展 -->
     <LinearLayout
@@ -188,5 +174,20 @@
             android:text="其他"
             android:textSize="12dip" />
     </LinearLayout>
+ <LinearLayout
+        android:id="@id/TaskListDivide"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="10.0px"
+            android:background="#ffffffff" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="@android:color/white" />
+    </LinearLayout>
 </LinearLayout>

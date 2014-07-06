@@ -177,7 +177,19 @@ public class TaskEditActivity extends FragmentActivity implements
 		Intent intent = getIntent();
 		mTask = intent.getParcelableExtra(KEY_TASK);
 		if (mTask == null) {
+			//init one task;
 			mTask = new com.esirong.timer.Task();
+			mTask.setAlert_at(time.getTimeInMillis());
+			mTask.setStart_at(time.getTimeInMillis());
+			mTask.setEnd_at(time.getTimeInMillis()+1*60*60*1000);
+			mTask.setDone(false);
+			mTask.setFinished(false);
+			mTask.setType("type1");
+			mTask.setScore(0);
+			mTask.setStatus(0);
+			taskType = "type1";
+			startTime = time.getTimeInMillis();
+			endTime  =time.getTimeInMillis()+1*60*60*1000;
 		}
 	}
 
@@ -490,7 +502,7 @@ public class TaskEditActivity extends FragmentActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				ViewHolder holder = (ViewHolder) view.getTag();
+				LabelAdapter.ViewHolder holder = (LabelAdapter.ViewHolder) view.getTag();
 				holder.cb.toggle();
 
 				// 将CheckBox的选中状况记录下来
@@ -674,16 +686,11 @@ public class TaskEditActivity extends FragmentActivity implements
 
 		//
 		mTask.setTitle(taskTitle);
-		// mTask.setType(taskType);
+//		 mTask.setType(taskType);
 		mTask.setStart_at(startTime);
 		mTask.setEnd_at(endTime);
 		mTask.setNote(memo);
-
-		mTask.setDone(false);
-		mTask.setFinished(false);
 		mTask.setAlert_at(startTime);
-		mTask.setPriority(1);
-		mTask.setStatus(3);
 		long taskId = dao.insertTask(mTask);
 
 		// s标签_事务

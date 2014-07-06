@@ -11,7 +11,7 @@
     <item android:state_pressed="false">
         <shape>
             <corners android:radius="2.0dip" />
-            <gradient android:startColor="@color/color_for_new_pinlock_forgot_pwd_bckg" android:endColor="@color/color_for_new_pinlock_forgot_pwd_bckg" />
+            <gradient android:startColor="#454545" android:endColor="#454545" />
             <padding android:left="8.0dip" android:top="8.0dip" android:right="8.0dip" android:bottom="8.0dip" />
         </shape>
     </item>

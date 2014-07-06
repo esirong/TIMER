@@ -7,7 +7,7 @@ package com.esirong.timer.db;
  * @author esirong
  * 
  */
-public interface SummaryInter {
+public interface SummaryDao {
 
 	/**
 	 * 获取全部任务数量

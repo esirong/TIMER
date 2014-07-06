@@ -149,12 +149,15 @@ public class TaskView extends FrameLayout implements View.OnClickListener,
 				break;
 			case R.id.buttonB:
 				L.i(TAG, "buttonB");
+				Toast.makeText(getContext(), "buttonB", 0).show();
 				break;
 			case R.id.buttonC:
 				L.i(TAG, "buttonC");
+				Toast.makeText(getContext(), "buttonC", 0).show();
 				break;
 			case R.id.TextA:
 				L.i(TAG, "TextA");
+				Toast.makeText(getContext(), "TextA", 0).show();
 				break;
 
 			default:

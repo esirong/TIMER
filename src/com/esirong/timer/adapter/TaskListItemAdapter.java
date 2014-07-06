@@ -16,7 +16,7 @@ import com.esirong.timer.R;
 import com.esirong.timer.Task;
 
 /**
- * ��Ŀ������
+ * 条目适配器
  * 
  * @author esirong
  * 
@@ -37,7 +37,7 @@ public class TaskListItemAdapter extends BaseAdapter {
 	}
 
 	/**
-	 * �����ڶ���ǰ
+	 * 加在在队列前
 	 * 
 	 * @param datas
 	 */
@@ -84,14 +84,14 @@ public class TaskListItemAdapter extends BaseAdapter {
 
 		holder.taskName.setText("" + info.getTitle());
 
-		holder.taskStatus.setText("����״̬" + info.getStatus());
+		holder.taskStatus.setText("事务状态" + info.getStatus());
 
-		holder.taskTime.setText("����ʱ��" + updateTitle(info.getStart_at()));
+		holder.taskTime.setText("" + updateTitle(info.getStart_at()));
 
-		holder.partnerName.setText("�����ɫ" + info.getType());
+		holder.partnerName.setText("" + info.getType());
 
-		//�첽����ͼƬ
-		// holder.avatarIcon.setImageResource(R.drawable.type1);
+		//异步加载图片
+//		 holder.avatarIcon.setImageResource(R.drawable.type1);
 
 		return convertView;
 	}
@@ -108,7 +108,7 @@ public class TaskListItemAdapter extends BaseAdapter {
 	private String updateTitle(long date) {
 		int flag = DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_SHOW_DATE
 				| DateUtils.FORMAT_SHOW_TIME;
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH��mm");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH：mm");
 
 		return format.format(date);
 	}

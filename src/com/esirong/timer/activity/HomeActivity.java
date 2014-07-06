@@ -8,12 +8,16 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.esirong.timer.DaoMaster;
 import com.esirong.timer.DaoMaster.DevOpenHelper;
 import com.esirong.timer.DaoSession;
 import com.esirong.timer.R;
 import com.esirong.timer.TaskDao;
+import com.esirong.timer.db.SummaryDao;
+import com.esirong.timer.db.SummaryImpl;
+import com.esirong.timer.util.Toasts;
 
 /*
  * 1正在做什么
@@ -31,6 +35,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
 	private TaskDao taskDao;
+	private  SummaryDao dao;
 
 	private Cursor cursor;
 
@@ -45,36 +50,16 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_home);
+		dao = new SummaryImpl();
 		initView();
 		initData();
 		setOnListener();
 
-		// 我该做什么
-		/*
-		 * 当天，当前的任务
-		 */
 		DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"notes-db", null);
 		db = helper.getReadableDatabase();
 		daoMaster = new DaoMaster(db);
 		daoSession = daoMaster.newSession();
 		taskDao = daoSession.getTaskDao();
-		//查询条件，未过期，的第一个
-		//排序，选择第一个
-//		String where ="start_at > now&&start_at<今天";
-//		taskDao.queryRaw(where, "","","","");
-
-		//我正在做什么
-		//查询：start at<now &&end_at>now
-		//就是正在进行事务了
-		
-//		where = "";
-		//我做了什么，即已经结束的事务
-		//end_at<now
-		
-		//做将要做什么
-		//start>now，且大于一定数据，如一天，一小时，的缓冲时段。
-		
-		//包装这四类操作。并获取数据的方当法，可复用
 		
 	}
 	private void initView() {
@@ -88,8 +73,15 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		
 	}
 	private void initData() {
-		
-		
+		//初始数据
+	int done = dao.getCount4Done();
+	int undone = dao.getCount4Undone();
+	double efficient = 	dao.getEfficientPercent();
+	int total = dao.getTotals();
+	TextView doneText = (TextView) currentTaskPanel.findViewById(R.id.done_percent);
+	TextView efficientText = (TextView) currentTaskPanel.findViewById(R.id.efficient_percent);
+	doneText.setText("完成："+done+"/"+total);	
+	efficientText.setText("效率指数:"+efficient*100+"%");
 	}
 	private void setOnListener() {
 		// TODO Auto-generated method stub
@@ -113,6 +105,21 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		case R.id.go_setting:
 			Intent intent2 = new Intent(this, SettingActivity.class);
 			startActivity(intent2);
+			break;
+		case R.id.current_task_panel:
+			Toasts.showToastShort(getApplicationContext(), "currentTaskPanel");
+			break;
+		case R.id.type1_task_panel:
+			Toasts.showToastShort(getApplicationContext(), "type1_task_panel");
+			break;
+		case R.id.type2_task_panel:
+			Toasts.showToastShort(getApplicationContext(), "type2_task_panel");
+			break;
+		case R.id.type3_task_panel:
+			Toasts.showToastShort(getApplicationContext(), "type3_task_panel");
+			break;
+		case R.id.type4_task_panel:
+			Toasts.showToastShort(getApplicationContext(), "type4_task_panel");
 			break;
 		default:
 			break;
