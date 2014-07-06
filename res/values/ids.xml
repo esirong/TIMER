@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="act_current_task_cycle" type="id">false</item>
+    <item name="act_current_task_cycle_title" type="id">false</item>
+    <item name="listitem_task_main" type="id">false</item>
+    <item name="act_current_task_cycle_detail" type="id">false</item>
+    <!-- 扩展listview -->
+    <item name="expandable_toggle_button" type="id"/>
+    <item name="expandable" type="id"/>
+    <!-- task list item -->
+    <item name="TaskListItemContent" type="id"/>
+    <item name="AvatarArea" type="id"/>
+    <item name="AvatarIcon" type="id"/>
+    <item name="PartnerName" type="id"/>
+    <item name="AvatarDivid" type="id"/>
+    <item name="TaskContent" type="id"/>
+    <item name="TaskName" type="id"/>
+    <item name="TaskContentLayoutOne" type="id"/>
+    <item name="TaskContentLayoutTwo" type="id"/>
+    <item name="TaskTime" type="id"/>
+    <item name="TaskStatus" type="id"/>
+    <item name="TaskChildEmpty" type="id"/>
+    <item name="TaskListDivide" type="id"/>
+    <item name="TaskAmount" type="id"/>
+    <!--  -->
+
+</resources>

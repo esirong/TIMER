@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/task_overview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bill_billdetail_yellow" >
+
+        <!-- 任务简要 -->
+
+        <LinearLayout
+            android:id="@+id/detail_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30.0dp"
+            android:layout_marginTop="3dp"
+            android:orientation="vertical" >
+
+            <!-- 任务标题 -->
+
+            <TextView
+                android:id="@+id/tasks_title"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:text="第五周事务总览"
+                android:textSize="20sp" />
+            <!-- 任务时间 -->
+
+            <TextView
+                android:id="@+id/t_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:text="完成量:48%"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="30dp"
+                android:background="@color/dividerColor"
+                android:padding="3dp" />
+        </LinearLayout>
+        <!-- 任务详细 -->
+
+        <LinearLayout
+            android:id="@+id/act_current_task_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detail_task"
+            android:layout_marginLeft="30.0dp"
+            android:orientation="vertical" >
+
+            <!-- 时间 -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="15dip"
+                    android:layout_height="15dip" />
+
+                <TextView
+                    android:id="@+id/tasks_consumed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="总耗时:1时-5分" />
+            </LinearLayout>
+            <!-- 地点(情境) -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="15dip"
+                    android:layout_height="19dip" />
+
+                <TextView
+                    android:id="@+id/tasks_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text=":40%" />
+            </LinearLayout>
+            <!-- 标签 -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="15dip"
+                    android:layout_height="15dip" />
+
+                <TextView
+                    android:id="@+id/tasks_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="总量:10" />
+            </LinearLayout>
+            <!-- 目标 -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="15dip"
+                    android:layout_height="15dip" />
+
+                <TextView
+                    android:id="@+id/t_finished"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="已完成:2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 自定一个时间轴view -->
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/detail_task"
+            android:layout_marginRight="30dp" />
+    </RelativeLayout>
+    <!-- 分割线View -->
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_gravity="bottom"
+        android:background="@color/dividerColor"
+        android:padding="3dp" />
+
+    <!-- ListView -->
+
+    <com.tjerkw.slideexpandable.library.ActionSlideExpandableListView
+        android:id="@+id/task_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/task_overview" >
+    </com.tjerkw.slideexpandable.library.ActionSlideExpandableListView>
+
+</RelativeLayout>

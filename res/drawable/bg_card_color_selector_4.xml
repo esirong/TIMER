@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <shape>
+            <corners android:radius="2.0dip" />
+            <solid android:color="@color/bg_btn_disable" />
+            <padding android:left="8.0dip" android:top="8.0dip" android:right="8.0dip" android:bottom="8.0dip" />
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <shape>
+            <corners android:radius="2.0dip" />
+            <gradient android:startColor="@color/taskTypeColor4" android:endColor="@color/taskTypeColor4" />
+            <padding android:left="8.0dip" android:top="8.0dip" android:right="8.0dip" android:bottom="8.0dip" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="2.0dip" />
+            <gradient android:startColor="@color/color_bt_selected" android:endColor="@color/color_bt_selected" />
+            <padding android:left="8.0dip" android:top="8.0dip" android:right="8.0dip" android:bottom="8.0dip" />
+        </shape>
+    </item>
+</selector>

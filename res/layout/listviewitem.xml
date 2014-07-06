@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="fill_parent"  
+    android:background="@color/bg_card_color"
+    android:layout_height="50dp"  
+    android:gravity="center"
+    android:layout_margin="10dp"
+    android:orientation="horizontal" >  
+  
+    <TextView  
+        android:padding="5dp"
+        android:id="@+id/item_tv"  
+        android:layout_width="0dp"  
+        android:layout_height="50dp"  
+        android:layout_gravity="center_vertical"  
+        android:textSize="18sp"
+        android:hint="文本"
+        android:layout_weight="1" />  
+  
+    <CheckBox  
+        android:id="@+id/item_cb"  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"  
+        android:clickable="false"  
+        android:focusable="false"  
+        android:checked="true"
+        android:focusableInTouchMode="false"  
+        android:gravity="center_vertical" />  
+  
+</LinearLayout>  

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/current_task_panel"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_card_color_selector"
+        android:padding="5dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="正在进行:任务名"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="完成：3/5"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="效率指数：3/5"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 四色块 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/go_head"
+        android:layout_below="@+id/current_task"
+        android:layout_margin="10dp"
+        android:layout_weight="100"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/block1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/type1_task_panel"
+                android:layout_width="0.0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/bg_card_color_selector_1"
+                android:onClick="ontaskclicked"
+                android:padding="5dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="重要紧急"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="完成比：3/5"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="效率指数：3/5"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/type2_task_panel"
+                android:layout_width="0.0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/bg_card_color_selector_2"
+                android:onClick="ontaskclicked"
+                android:padding="5dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="重要不紧急"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="完成比：3/5"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="效率指数：3/5"
+                        android:textColor="@color/black" />
+
+                   
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/block2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/block1"
+            android:layout_centerInParent="true"
+            android:layout_weight="1.0"
+            android:orientation="horizontal" >
+
+            <FrameLayout
+                android:id="@+id/type3_task_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_color_selector_3"
+                android:padding="5dp" >
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/type4_task_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_color_selector_4"
+                android:padding="5dp" >
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+<LinearLayout 
+    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true" 
+    >
+    
+      <TextView
+        android:id="@+id/go_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/bg_card_color_selector"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:text="查看" />
+      
+      <TextView
+        android:id="@+id/go_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/bg_card_color_selector"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:text="设置" />
+</LinearLayout>
+  
+
+</LinearLayout>

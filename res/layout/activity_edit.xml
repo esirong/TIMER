@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- 内容 -->
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdge="none"
+            android:padding="10dp"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/edit_type_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="@dimen/dimen_50_dip"
+                        android:layout_margin="5dp"
+                        android:padding="5dp" />
+
+                    <EditText
+                        android:id="@+id/edit_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/dimen_50_dip"
+                        android:layout_margin="5dp"
+                        android:padding="5dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
+
+                    <!--  -->
+
+                    <Button
+                        android:id="@+id/edit_context_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="@dimen/dimen_50_dip" />
+
+                    <Button
+                        android:id="@+id/edit_time_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="@dimen/dimen_50_dip" />
+
+                    <Button
+                        android:id="@+id/edit_label_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="@dimen/dimen_50_dip" />
+
+                    <Button
+                        android:id="@+id/edit_goal_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="@dimen/dimen_50_dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/row_container_ly"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/AppBackgroundColor"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#23000000"
+                        android:gravity="center"
+                        android:text="时间"
+                        android:textColor="#99000000" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#45000000" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible" >
+
+                        <TextView
+                            android:id="@+id/edit_time_start_tv"
+                            android:layout_width="50dp"
+                            android:layout_height="@dimen/dimen_50_dip"
+                            android:layout_weight="1"
+                            android:ems="1"
+                            android:gravity="center"
+                            android:hint="开始时间"
+                            android:singleLine="true" />
+
+                        <TextView
+                            android:id="@+id/edit_time_end_tv"
+                            android:layout_width="50dp"
+                            android:layout_height="@dimen/dimen_50_dip"
+                            android:layout_weight="1"
+                            android:ems="1"
+                            android:gravity="center"
+                            android:hint="结束时间"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#23000000"
+                        android:gravity="center"
+                        android:text="情境"
+                        android:textColor="#99000000" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#45000000" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="visible" >
+
+                        <TextView
+                            android:id="@+id/edit_context_tv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/dimen_50_dip"
+                            android:gravity="left|center"
+                            android:hint="情境"
+                            android:padding="10dp"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#23000000"
+                        android:gravity="center"
+                        android:text="标签"
+                        android:textColor="#99000000" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#45000000" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible" >
+
+                        <TextView
+                            android:id="@+id/edit_labels_tv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/dimen_50_dip"
+                            android:gravity="left|center"
+                            android:hint="标签"
+                            android:padding="10dp"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#23000000"
+                        android:gravity="center"
+                        android:text="目标"
+                        android:textColor="#99000000" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#45000000" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible" >
+
+                        <TextView
+                            android:id="@+id/edit_goals_tv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/dimen_50_dip"
+                            android:gravity="left|center"
+                            android:hint="目标"
+                            android:padding="10dp"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <EditText
+                                    android:id="@+id/memo_tv"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="@dimen/dimen_60_dip"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/dimen_18_dip"
+                                    android:layout_marginRight="@dimen/dimen_18_dip"
+                                    android:layout_marginTop="@dimen/dimen_2_dip"
+                                    android:background="@null"
+                                    android:clickable="true"
+                                    android:gravity="left|center"
+                                    android:hint="请填写备注信息"
+                                    android:paddingLeft="@dimen/dimen_3_dip"
+                                    android:paddingRight="@dimen/dimen_3_dip"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="#ff9b7e4c" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="备注"
+                            android:textColor="#ff826d28" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10_dip"
+                        android:gravity="center" >
+
+                        <Button
+                            android:id="@+id/cancel_btn"
+                            android:layout_width="@dimen/dimen_298_dip"
+                            android:layout_height="@dimen/dimen_43_dip"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="取消"
+                            android:textColor="#ff3d2802"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/save_btn"
+                            android:layout_width="@dimen/dimen_298_dip"
+                            android:layout_height="@dimen/dimen_43_dip"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="保存"
+                            android:textColor="#ff3d2802"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/panel_ly"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:id="@+id/panel_control_rl"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dimen_34_dip"
+                android:minHeight="@dimen/dimen_34_dip" >
+
+                <Button
+                    android:id="@+id/tab_edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/tab_ok_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/panel_divide_iv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/panel_wheel_view_container_ly"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

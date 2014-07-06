@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+This file is part of Todo.txt, an Android app for managing your todo.txt file (http://todotxt.com).
+
+Copyright (c) 2009-2013 Todo.txt contributors (http://todotxt.com)
+
+LICENSE:
+
+Todo.txt is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
+later version.
+
+Todo.txt is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License along with Todo.txt.  If not, see
+<http://www.gnu.org/licenses/>.
+
+@author Todo.txt contributors <todotxt@yahoogroups.com>
+@license http://www.gnu.org/licenses/gpl.html
+@copyright 2009-2013 Todo.txt contributors (http://todotxt.com)
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!-- 标签输入框 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/add_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:ems="10"
+            android:inputType="text"
+            android:visibility="visible" >
+
+            <requestFocus android:layout_width="match_parent" />
+        </EditText>
+
+        <Button
+            android:id="@+id/edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/list_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:orientation="vertical" >
+
+        <!-- 标签  显示 -->
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:visibility="invisible"
+            android:padding="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <!-- 已有标签选择列表项 -->
+
+        <ListView
+            android:id="@+id/list2"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:minHeight="100dp"
+            android:choiceMode="singleChoice"
+            android:background="@color/backgroudColor"
+            android:fastScrollEnabled="true" />
+        <!-- 列表空置时显示 -->
+
+        <FrameLayout
+            android:id="@id/android:empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="无内容"
+                
+                android:visibility="invisible" />
+
+            <ProgressBar
+                android:id="@+id/loading_spinner"
+                style="?android:progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/ok_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/cancel_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cancel" />
+    </LinearLayout>
+
+</LinearLayout>

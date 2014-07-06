@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+   
+
+    <PreferenceCategory android:title="提醒设置" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="alert"
+            android:summaryOff="关闭"
+            android:summaryOn="开启"
+            android:title="提醒" />
+
+        <PreferenceScreen android:title="更多选项" >
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="virabte"
+                android:summaryOff="关闭"
+                android:summaryOn="开启"
+                android:title="震动" />
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="ring"
+                android:summaryOff="停用"
+                android:summaryOn="使用"
+                android:title="响铃" />
+
+            <RingtonePreference
+                android:key="rt1"
+                android:summary="铃声名字"
+                android:title="选择铃声" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="数据支持" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="autoBack"
+            android:summaryOff="关闭"
+            android:summaryOn="开启"
+            android:title="自动备份" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="服务支持" >
+     <Preference android:title="版本"
+         android:summary="1.0"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
