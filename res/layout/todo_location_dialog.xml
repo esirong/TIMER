@@ -98,7 +98,7 @@ You should have received a copy of the GNU General Public License along with Tod
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="无内容"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <ProgressBar
                 android:id="@+id/loading_spinner"

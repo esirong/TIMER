@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.esirong.timer.DaoMaster;
 import com.esirong.timer.DaoMaster.DevOpenHelper;
 import com.esirong.timer.DaoSession;
@@ -19,15 +20,8 @@ import com.esirong.timer.db.SummaryDao;
 import com.esirong.timer.db.SummaryImpl;
 import com.esirong.timer.util.Toasts;
 
-/*
- * 1正在做什么
- * 分别回答	
- 清空	我该做什么
- 检视	我正在做什么
- 总结	我做了什么
- 计划	我将要做什么
- */
-public class HomeActivity extends FragmentActivity implements OnClickListener {
+
+public class HomeActivity extends SherlockFragmentActivity implements OnClickListener {
 	private SQLiteDatabase db;
 
 	private EditText editText;

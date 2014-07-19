@@ -307,7 +307,7 @@ public class TaskDao2 {
 				.getTaskId()), com.esirong.timer.Task_GoalDao.Properties.GoalId
 				.eq(entity.getGoalId()));
 		qb.buildCount().count();
-		return qb.buildCount().count() > 0 ? true : false;// �����ղر�
+		return qb.buildCount().count() > 0 ? true : false;
 	}
 
 	public Task_Goal findTaskGoal(long taskId, long goalId) {
@@ -327,7 +327,7 @@ public class TaskDao2 {
 
 	public long insertTaskGoal(Task_Goal entity) {
 		if (isTaskGoalSaved(entity)) {
-			return findTaskLabel(entity.getTaskId(), entity.getGoalId())
+			return findTaskGoal(entity.getTaskId(), entity.getGoalId())
 					.getId();
 		} else {
 			return daoSession.insertOrReplace(entity);
@@ -426,4 +426,13 @@ public class TaskDao2 {
 		return comsumer;
 		
 	}
+
+	public void deleteTaskGoal(Task_Goal entity) {
+		if (isTaskGoalSaved(entity)) {
+			daoSession.delete(entity);
+		}
+		
+	}
+
+
 }

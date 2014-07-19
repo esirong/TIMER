@@ -34,18 +34,23 @@
             </intent-filter>
         </activity>
         <!-- 主页 -->
-        <activity android:name="com.esirong.timer.activity.MainActivity" >
+        <activity
+            android:name="com.esirong.timer.activity.MainActivity"
+            android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         </activity>
         <!-- 编辑页 -->
-        <activity android:name="com.esirong.timer.activity.TaskEditActivity" >
+        <activity android:name="com.esirong.timer.activity.TaskEditActivity"
+            android:theme="@style/Theme.Sherlock.Light" >
         </activity>
         <!--  -->
-        <activity android:name="com.esirong.timer.activity.HomeActivity" >
+        <activity
+            android:name="com.esirong.timer.activity.HomeActivity"
+            android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         </activity>
         <activity android:name="com.esirong.timer.activity.GuideActivity" >
         </activity>
         <!-- 设置 -->
-          <activity android:name="com.esirong.timer.activity.SettingActivity" >
+        <activity android:name="com.esirong.timer.activity.SettingActivity" >
         </activity>
         <activity
             android:name=".ui.AlarmAlertActivity"

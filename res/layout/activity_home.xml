@@ -6,6 +6,22 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今天time" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="添加" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/current_task_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,8 +65,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center"
-            android:layout_below="@+id/overview" >
+            android:layout_below="@+id/overview"
+            android:gravity="center" >
 
             <Button
                 android:layout_width="wrap_content"
@@ -103,7 +119,6 @@
                 android:layout_margin="2.0dp"
                 android:layout_weight="1.0"
                 android:background="#eeeeee"
-              
                 android:padding="5dp" >
 
                 <LinearLayout
@@ -142,7 +157,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2.0dp"
                 android:layout_weight="1.0"
-                 android:background="#eeeeee"
+                android:background="#eeeeee"
                 android:padding="5dp" >
 
                 <LinearLayout
@@ -191,7 +206,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2.0dp"
                 android:layout_weight="1"
-                 android:background="#eeeeee"
+                android:background="#eeeeee"
                 android:padding="5dp" >
 
                 <TextView

@@ -30,6 +30,7 @@ import com.esirong.timer.DaoMaster.DevOpenHelper;
 import com.esirong.timer.DaoSession;
 import com.esirong.timer.Task;
 import com.esirong.timer.db.AlertDao;
+import com.esirong.timer.db.AlertImpl;
 
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -48,6 +49,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         long currentDate = System.currentTimeMillis();
+        taskDao = new AlertImpl(context) ;
         List<Task> list = taskDao.findTask(currentDate);
 		for(Task task :list){
 			 long alertDate = task.getAlert_at();

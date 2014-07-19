@@ -200,9 +200,6 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	}
 	
 	
-	//==ҳ��ı����===================================================	
-	// ������״̬�ı�ʱ����
-	
 	
 
 }

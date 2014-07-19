@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.esirong.timer.R;
 import com.esirong.timer.Task;
 import com.esirong.timer.adapter.TaskListItemAdapter;
@@ -30,7 +31,7 @@ import com.esirong.timer.view.TaskView;
  * @author esirong
  * 
  */
-public class MainActivity extends FragmentActivity implements OnClickListener,
+public class MainActivity extends SherlockFragmentActivity implements OnClickListener,
 		OnPageChangeListener {
 	private static final String TAG = "MainActivity";
 	private Button userCenter;//
