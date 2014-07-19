@@ -1,10 +1,14 @@
 package com.esirong.timer.activity;
 
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -21,8 +25,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.esirong.timer.Goal;
 import com.esirong.timer.R;
 import com.esirong.timer.Task;
+import com.esirong.timer.Task_Goal;
 import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.Strings;
 import com.esirong.timer.util.Toasts;
@@ -74,11 +80,18 @@ public class TaskEditActivity extends FragmentActivity implements
 
 	private View reminder_;
 	private View flowview;
-	private Button addButton;
 	private FragmentManager fm;
 	// 数据
 	private TaskDao2 dao;
 	private Task mTask;
+	private final static String TASK_ID_KEY = "task_id";
+
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+
+		};
+	};
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -89,7 +102,25 @@ public class TaskEditActivity extends FragmentActivity implements
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setDisplayShowTitleEnabled(true);
 		fm = getSupportFragmentManager();
+		initTask();
 		initViews();
+	}
+
+	private void initTask() {
+		Intent intent = getIntent();
+		Long taskid = intent.getLongExtra(TASK_ID_KEY, -1);
+		if (taskid == -1) {
+			mTask = new Task();
+			mTask.setType("type1");
+			mTask.setStart_at(System.currentTimeMillis());
+			mTask.setEnd_at(System.currentTimeMillis() + 1 * 60 * 60);
+			mTask.setDone(false);
+			mTask.setFinished(false);
+			mTask.setStatus(1);
+		} else {
+			mTask = dao.findTask(taskid);
+		}
+
 	}
 
 	private void initViews() {
@@ -119,6 +150,7 @@ public class TaskEditActivity extends FragmentActivity implements
 		location.setVisibility(View.GONE);
 		label.setVisibility(View.GONE);
 		goal.setVisibility(View.GONE);
+		goal_tv = (TextView) findViewById(R.id.goal_tv);
 
 		flowview = findViewById(R.id.flowview);
 		// 选项按键
@@ -141,7 +173,7 @@ public class TaskEditActivity extends FragmentActivity implements
 
 		@Override
 		public void afterTextChanged(Editable arg0) {
-
+			dao.insertTask(mTask);
 		}
 
 		@Override
@@ -160,7 +192,6 @@ public class TaskEditActivity extends FragmentActivity implements
 			} else {
 				operation_panel.setVisibility(View.VISIBLE);
 				add_btn.setVisibility(View.VISIBLE);
-				panel.setVisibility(View.VISIBLE);
 			}
 
 		}
@@ -195,18 +226,61 @@ public class TaskEditActivity extends FragmentActivity implements
 
 	private void showGoalDialog() {
 		GoalDialog dialog = new GoalDialog(instance);
-		dialog.initDialog(dao.findGoalAll(),mTask);
+		dialog.initDialog(dao.findGoalAll(), mTask);
+		dialog.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss(DialogInterface arg0) {
+				List<Task_Goal> list = dao.findGoalByTaskId(mTask.getId());
+				if(list ==null ||list.size()<=0){
+					goal.setVisibility(View.GONE);
+				}else{
+					goal.setVisibility(View.VISIBLE);
+					String str = "";
+					for(Task_Goal l:list){
+						Goal goal = dao.findGoal(l.getGoalId());
+						str+=goal.getName();
+						str+=",";
+					}
+					goal_tv.setText(str);
+				}
+				
+
+			}
+		});
 		dialog.show();
 
 	}
 
 	private void showLabelDialog() {
-		// TODO Auto-generated method stub
+		LabelDialog dialog = new LabelDialog(instance);
+		dialog.initDialog(dao.findLabelAll(), mTask);
+		dialog.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss(DialogInterface arg0) {
+				label.setVisibility(View.VISIBLE);
+
+			}
+		});
+		dialog.show();
+		dialog.show();
 
 	}
 
 	private void showLocationDialog() {
-		
+		LocationDialog dialog = new LocationDialog(instance);
+		dialog.initDialog(dao.findAddressAll(), mTask);
+		dialog.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss(DialogInterface arg0) {
+				location.setVisibility(View.VISIBLE);
+
+			}
+		});
+		dialog.show();
+		dialog.show();
 	}
 
 	private void showReminderDialog() {
@@ -248,7 +322,7 @@ public class TaskEditActivity extends FragmentActivity implements
 			}
 		});
 		timePicker.show();
-		
+
 	}
 
 	private void deleteTask() {

@@ -35,6 +35,7 @@ public class TaskDao extends AbstractDao<Task, Long> {
         public final static Property Finished = new Property(9, Boolean.class, "finished", false, "FINISHED");
         public final static Property Done = new Property(10, Boolean.class, "done", false, "DONE");
         public final static Property Score = new Property(11, Integer.class, "score", false, "SCORE");
+        public final static Property Address = new Property(12, String.class, "address", false, "ADDRESS");
     };
 
     private DaoSession daoSession;
@@ -64,7 +65,8 @@ public class TaskDao extends AbstractDao<Task, Long> {
                 "'STATUS' INTEGER," + // 8: status
                 "'FINISHED' INTEGER," + // 9: finished
                 "'DONE' INTEGER," + // 10: done
-                "'SCORE' INTEGER);"); // 11: score
+                "'SCORE' INTEGER," + // 11: score
+                "'ADDRESS' TEXT);"); // 12: address
     }
 
     /** Drops the underlying database table. */
@@ -137,6 +139,11 @@ public class TaskDao extends AbstractDao<Task, Long> {
         if (score != null) {
             stmt.bindLong(12, score);
         }
+ 
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(13, address);
+        }
     }
 
     @Override
@@ -166,7 +173,8 @@ public class TaskDao extends AbstractDao<Task, Long> {
             cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // status
             cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0, // finished
             cursor.isNull(offset + 10) ? null : cursor.getShort(offset + 10) != 0, // done
-            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // score
+            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // score
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // address
         );
         return entity;
     }
@@ -186,6 +194,7 @@ public class TaskDao extends AbstractDao<Task, Long> {
         entity.setFinished(cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0);
         entity.setDone(cursor.isNull(offset + 10) ? null : cursor.getShort(offset + 10) != 0);
         entity.setScore(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
+        entity.setAddress(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
      }
     
     /** @inheritdoc */

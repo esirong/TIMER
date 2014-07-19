@@ -22,6 +22,7 @@ public class Task {
     private Boolean finished;
     private Boolean done;
     private Integer score;
+    private String address;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -38,7 +39,7 @@ public class Task {
         this.id = id;
     }
 
-    public Task(Long id, String title, String note, String type, Integer priority, Long start_at, Long end_at, Long alert_at, Integer status, Boolean finished, Boolean done, Integer score) {
+    public Task(Long id, String title, String note, String type, Integer priority, Long start_at, Long end_at, Long alert_at, Integer status, Boolean finished, Boolean done, Integer score, String address) {
         this.id = id;
         this.title = title;
         this.note = note;
@@ -51,6 +52,7 @@ public class Task {
         this.finished = finished;
         this.done = done;
         this.score = score;
+        this.address = address;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -153,6 +155,14 @@ public class Task {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */

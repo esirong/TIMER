@@ -142,7 +142,7 @@ public class TaskDao2 {
 				com.esirong.timer.TaskDao.Properties.Title.eq(task.getTitle()));
 
 		qb.buildCount().count();
-		return qb.buildCount().count() > 0 ? true : false;// �����ղر�
+		return qb.buildCount().count() > 0 ? true : false;
 	}
 
 	// �����ǩ
@@ -278,7 +278,7 @@ public class TaskDao2 {
 
 				.Properties.LabelId.eq(entity.getLabelId()));
 		qb.buildCount().count();
-		return qb.buildCount().count() > 0 ? true : false;// �����ղر�
+		return qb.buildCount().count() > 0 ? true : false;
 	}
 
 	public Task_Label findTaskLabel(long taskId, long labelId) {
@@ -431,6 +431,35 @@ public class TaskDao2 {
 		if (isTaskGoalSaved(entity)) {
 			daoSession.delete(entity);
 		}
+		
+	}
+
+	public void deleteTaskLabel(Task_Label entity) {
+		if (isTaskLabelSaved(entity)) {
+			daoSession.delete(entity);
+		}
+	}
+
+	public Task findTask(Long taskId) {
+		TaskDao dao = daoSession.getTaskDao();
+		QueryBuilder<Task> qb = dao.queryBuilder();
+
+		qb.where(com.esirong.timer.TaskDao.Properties.Id.eq(taskId));
+		qb.buildCount().count();
+		if (qb.list().size() > 0) {
+			return qb.list().get(0);
+		} else {
+			return null;
+		}
+	}
+
+	public List<Task_Goal> findGoalByTaskId(Long taskId) {
+		Task_GoalDao dao = daoSession.getTask_GoalDao();
+		QueryBuilder<Task_Goal> qb = dao.queryBuilder();
+
+		qb.where(com.esirong.timer.Task_GoalDao.Properties.TaskId.eq(taskId));
+		qb.buildCount().count();
+		return qb.list();
 		
 	}
 
