@@ -1,12 +1,17 @@
 package com.esirong.timer.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -14,21 +19,30 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.esirong.timer.Goal;
+import com.esirong.timer.Label;
 import com.esirong.timer.R;
 import com.esirong.timer.Task;
 import com.esirong.timer.Task_Goal;
+import com.esirong.timer.Task_Label;
 import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.Strings;
 import com.esirong.timer.util.Toasts;
@@ -50,10 +64,16 @@ public class TaskEditActivity extends FragmentActivity implements
 	private TaskType type;
 	/** 标题 */
 	private EditText title;
+	/** 事务类型图标 */
+	private ImageView AvatarIcon;
+	private View startAt;
+	private View endAt;
 	/** 开始时间 */
-	private TextView startAt;
+	private TextView start_time_at_tv;
+	private TextView start_date_at_tv;
 	/** 结束时间 */
-	private TextView endAt;
+	private TextView end_time_at_tv;
+	private TextView end_date_at_tv;
 	/** 全天选项按键 */
 	private Button allDay;
 	/** 可选项面板 */
@@ -131,8 +151,13 @@ public class TaskEditActivity extends FragmentActivity implements
 		operation_panel.setVisibility(View.GONE);
 		//
 		title = (EditText) findViewById(R.id.task_title);
-		startAt = (TextView) findViewById(R.id.start_time_at_tv);
-		endAt = (TextView) findViewById(R.id.end_time_at_tv);
+		AvatarIcon = (ImageView) findViewById(R.id.AvatarIcon);
+		startAt = findViewById(R.id.start_at);
+		endAt = findViewById(R.id.end_at);
+		start_date_at_tv = (TextView)findViewById(R.id.start_date_at_tv);
+		start_time_at_tv = (TextView) findViewById(R.id.start_time_at_tv);
+		end_date_at_tv = (TextView) findViewById(R.id.end_date_at_tv);
+		end_time_at_tv = (TextView) findViewById(R.id.end_time_at_tv);
 		allDay = (Button) findViewById(R.id.allday_btn);
 		// 可选项
 		panel = (ViewGroup) findViewById(R.id.options_panel);
@@ -146,12 +171,17 @@ public class TaskEditActivity extends FragmentActivity implements
 		location = findViewById(R.id.location_);
 		label = findViewById(R.id.label_);
 		goal = findViewById(R.id.goal_);
+
 		reminder.setVisibility(View.GONE);
 		location.setVisibility(View.GONE);
 		label.setVisibility(View.GONE);
 		goal.setVisibility(View.GONE);
+		//
 		goal_tv = (TextView) findViewById(R.id.goal_tv);
-
+		label_tv = (TextView) findViewById(R.id.label_tv);
+		location_tv = (TextView) findViewById(R.id.location_tv);
+		reminder_tv = (TextView) findViewById(R.id.reminder_tv);
+		// ==============
 		flowview = findViewById(R.id.flowview);
 		// 选项按键
 		reminder_btn.setOnClickListener(this);
@@ -165,6 +195,7 @@ public class TaskEditActivity extends FragmentActivity implements
 		add_btn.setOnClickListener(this);
 		delete_btn.setOnClickListener(this);
 		title.setOnClickListener(this);
+		AvatarIcon.setOnClickListener(this);
 		title.addTextChangedListener(textWatcher);
 
 	}
@@ -173,7 +204,7 @@ public class TaskEditActivity extends FragmentActivity implements
 
 		@Override
 		public void afterTextChanged(Editable arg0) {
-			dao.insertTask(mTask);
+
 		}
 
 		@Override
@@ -187,11 +218,12 @@ public class TaskEditActivity extends FragmentActivity implements
 			mTask.setTitle(s.toString());
 			if (Strings.isBlank(s.toString())) {
 				Toasts.showToastShort(instance, "请输入");
-				operation_panel.setVisibility(View.GONE);
+				add_btn.setClickable(false);
 				panel.setVisibility(View.GONE);
 			} else {
 				operation_panel.setVisibility(View.VISIBLE);
 				add_btn.setVisibility(View.VISIBLE);
+				add_btn.setClickable(true);
 			}
 
 		}
@@ -218,11 +250,94 @@ public class TaskEditActivity extends FragmentActivity implements
 			showLabelDialog();
 		} else if (v == goal_btn) {
 			showGoalDialog();
+		} else if (v == AvatarIcon) {
+			showTypePooupWindow(v);
 		} else if (v == reminder) {
-			reminder_.setVisibility(View.VISIBLE);
 		}
 
 	}
+	PopupWindow popupWindow = null;
+	private void showTypePooupWindow(View v) {
+			// 从xml制成一个view
+			ImageView view1 = null;
+			ImageView view2 = null;
+			ImageView view3 = null;
+			ImageView view4 = null;
+			if (popupWindow == null) {
+				
+				LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				final View view = inflater.inflate(R.layout.type_select_layout,
+						null);
+				view1 = (ImageView) view.findViewById(R.id.task_type_1);
+				view2 = (ImageView) view.findViewById(R.id.task_type_2);
+				view3 = (ImageView) view.findViewById(R.id.task_type_3);
+				view4 = (ImageView) view.findViewById(R.id.task_type_4);
+				view.setOnTouchListener(new OnTouchListener() {
+
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						return false;
+					}
+
+				});
+				view1.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						AvatarIcon.setBackgroundResource(R.drawable.type1);
+						mTask.setType("type1");
+						dao.insertTask(mTask);
+						popupWindow.dismiss();
+					}
+				});
+				view2.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						AvatarIcon.setBackgroundResource(R.drawable.type2);
+						mTask.setType("type2");
+						dao.insertTask(mTask);
+						popupWindow.dismiss();
+					}
+				});
+				view3.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						AvatarIcon.setBackgroundResource(R.drawable.type3);
+						mTask.setType("type3");
+						dao.insertTask(mTask);
+						popupWindow.dismiss();
+					}
+				});
+				view4.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						AvatarIcon.setBackgroundResource(R.drawable.type4);
+						mTask.setType("type4");
+						dao.insertTask(mTask);
+						popupWindow.dismiss();
+					}
+				});
+
+				popupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT,
+						LayoutParams.MATCH_PARENT);
+			}
+			// 使其聚集
+			popupWindow.setFocusable(true);
+			// 设置允许在外点击消失
+			popupWindow.setOutsideTouchable(true);
+
+			// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+			// 设置SelectPicPopupWindow弹出窗体的背景
+			popupWindow.update();
+			popupWindow.setBackgroundDrawable(new BitmapDrawable());
+			popupWindow.showAtLocation(v, Gravity.CENTER_HORIZONTAL
+					| Gravity.CENTER_HORIZONTAL, 0, 0); 
+	}
+
+		
 
 	private void showGoalDialog() {
 		GoalDialog dialog = new GoalDialog(instance);
@@ -232,19 +347,18 @@ public class TaskEditActivity extends FragmentActivity implements
 			@Override
 			public void onDismiss(DialogInterface arg0) {
 				List<Task_Goal> list = dao.findGoalByTaskId(mTask.getId());
-				if(list ==null ||list.size()<=0){
+				if (list == null || list.size() <= 0) {
 					goal.setVisibility(View.GONE);
-				}else{
+				} else {
 					goal.setVisibility(View.VISIBLE);
 					String str = "";
-					for(Task_Goal l:list){
+					for (Task_Goal l : list) {
 						Goal goal = dao.findGoal(l.getGoalId());
-						str+=goal.getName();
-						str+=",";
+						str += goal.getName();
+						str += ",";
 					}
 					goal_tv.setText(str);
 				}
-				
 
 			}
 		});
@@ -259,11 +373,22 @@ public class TaskEditActivity extends FragmentActivity implements
 
 			@Override
 			public void onDismiss(DialogInterface arg0) {
-				label.setVisibility(View.VISIBLE);
+				List<Task_Label> list = dao.findLabelByTaskId(mTask.getId());
+				if (list == null || list.size() <= 0) {
+					label.setVisibility(View.GONE);
+				} else {
+					label.setVisibility(View.VISIBLE);
+					String str = "";
+					for (Task_Label l : list) {
+						Label label = dao.findLabel(l.getLabelId());
+						str += label.getName();
+						str += ",";
+					}
+					label_tv.setText(str);
+				}
 
 			}
 		});
-		dialog.show();
 		dialog.show();
 
 	}
@@ -275,16 +400,48 @@ public class TaskEditActivity extends FragmentActivity implements
 
 			@Override
 			public void onDismiss(DialogInterface arg0) {
-				location.setVisibility(View.VISIBLE);
+				String str = mTask.getAddress();
+				if (Strings.isBlank(str)) {
+					location.setVisibility(View.GONE);
+
+				} else {
+					location.setVisibility(View.VISIBLE);
+					location_tv.setText(str);
+				}
 
 			}
 		});
 		dialog.show();
-		dialog.show();
 	}
 
+	// 提醒
 	private void showReminderDialog() {
-		// TODO Auto-generated method stub
+		Calendar cal = Calendar.getInstance();
+		DateTimePickerDialog timePicker = new DateTimePickerDialog(instance,
+				cal.getTimeInMillis());
+		timePicker.setTitle("提醒时间");
+		timePicker.setIcon(R.drawable.time_flag);
+		timePicker.setOnDateTimeSetListener(new OnDateTimeSetListener() {
+
+			@Override
+			public void OnDateTimeSet(AlertDialog dialog, long date) {
+				
+				mTask.setAlert_at(date);
+				dao.insertTask(mTask);
+				if (date <= 0) {
+					reminder.setVisibility(View.GONE);
+				} else {
+					reminder.setVisibility(View.VISIBLE);
+					reminder_tv.setText(formateDate(date)+formateTime(date));
+					//设定提醒
+				}
+                Intent sender = new Intent(instance, com.esirong.timer.receiver.AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, sender, 0);
+                AlarmManager alermManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alermManager.set(AlarmManager.RTC_WAKEUP, date, pendingIntent);
+			}
+		});
+		timePicker.show();
 
 	}
 
@@ -303,6 +460,8 @@ public class TaskEditActivity extends FragmentActivity implements
 			@Override
 			public void OnDateTimeSet(AlertDialog dialog, long date) {
 				mTask.setEnd_at(date);
+				end_date_at_tv.setText(formateDate(date));
+				end_time_at_tv.setText(formateTime(date));
 			}
 		});
 		timePicker.show();
@@ -319,6 +478,8 @@ public class TaskEditActivity extends FragmentActivity implements
 			@Override
 			public void OnDateTimeSet(AlertDialog dialog, long date) {
 				mTask.setStart_at(date);
+				start_date_at_tv.setText(formateDate(date));
+				start_time_at_tv.setText(formateTime(date));
 			}
 		});
 		timePicker.show();
@@ -326,7 +487,10 @@ public class TaskEditActivity extends FragmentActivity implements
 	}
 
 	private void deleteTask() {
-		dao.deleteTask();
+		Long id = mTask.getId();
+		if (id != null) {
+			dao.deleteTask(id);
+		}
 
 	}
 
@@ -379,5 +543,22 @@ public class TaskEditActivity extends FragmentActivity implements
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private String formateDate(long date) {
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(date);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 ");
+
+		return sdf.format(c.getTime());
+
+	}
+	private String formateTime(long date) {
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(date);
+		SimpleDateFormat sdf = new SimpleDateFormat("HH时mm分ss秒 E ");
+
+		return sdf.format(c.getTime());
+
 	}
 }

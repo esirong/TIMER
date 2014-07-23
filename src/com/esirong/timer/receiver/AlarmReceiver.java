@@ -17,16 +17,21 @@
 package com.esirong.timer.receiver;
 
 import com.esirong.timer.activity.AlarmAlertActivity;
+import com.esirong.timer.activity.MainActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        intent.setClass(context, AlarmAlertActivity.class);
+        intent.setClass(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+        Log.d("", "提醒");
+        Toast.makeText(context, "提醒", 0).show();
     }
 }

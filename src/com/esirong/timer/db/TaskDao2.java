@@ -102,7 +102,9 @@ public class TaskDao2 {
 	}
 
 	// ɾ������
-	public void deleteTask() {
+	public void deleteTask(Long taskid) {
+		TaskDao dao = daoSession.getTaskDao();
+		dao.deleteByKey(taskid);
 	}
 
 	// ɾ�����е�
@@ -461,6 +463,15 @@ public class TaskDao2 {
 		qb.buildCount().count();
 		return qb.list();
 		
+	}
+
+	public List<Task_Label> findLabelByTaskId(Long taskId) {
+		Task_LabelDao dao = daoSession.getTask_LabelDao();
+		QueryBuilder<Task_Label> qb = dao.queryBuilder();
+
+		qb.where(com.esirong.timer.Task_LabelDao.Properties.TaskId.eq(taskId));
+		qb.buildCount().count();
+		return qb.list();
 	}
 
 

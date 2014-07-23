@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -21,7 +24,7 @@ import com.esirong.timer.db.SummaryImpl;
 import com.esirong.timer.util.Toasts;
 
 
-public class HomeActivity extends SherlockFragmentActivity implements OnClickListener {
+public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private SQLiteDatabase db;
 
 	private EditText editText;
@@ -45,6 +48,8 @@ public class HomeActivity extends SherlockFragmentActivity implements OnClickLis
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_home);
 		dao = new SummaryImpl();
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setDisplayShowTitleEnabled(true);
 		initView();
 		initData();
 		setOnListener();
@@ -119,6 +124,35 @@ public class HomeActivity extends SherlockFragmentActivity implements OnClickLis
 			break;
 		}
 		
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.edit_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_search:
+			// openSearch();
+			Toasts.showToastShort(this, "add_task");
+			startActivity(new Intent(this, TaskEditActivity.class));
+			return true;
+		case R.id.action_settings:
+			Toasts.showToastShort(this, "action_settings");
+			Intent intent = new Intent(this, SettingActivity.class);
+			startActivity(intent);
+			return true;
+		case android.R.id.home:
+
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 }
