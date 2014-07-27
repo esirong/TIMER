@@ -139,6 +139,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.action_search:
 			// openSearch();
+			return true;
+		case R.id.action_add:
 			Toasts.showToastShort(this, "add_task");
 			startActivity(new Intent(this, TaskEditActivity.class));
 			return true;

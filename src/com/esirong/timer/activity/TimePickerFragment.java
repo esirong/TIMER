@@ -10,6 +10,11 @@ import com.esirong.timer.R;
 import com.esirong.timer.view.DateTimePickerDialog;
 import com.esirong.timer.view.DateTimePickerDialog.OnDateTimeSetListener;
 
+/**
+ * 时间选择器
+ * @author esirong
+ *
+ */
 public class TimePickerFragment {
 
 	public static DateTimePickerDialog init(Context cxt) {

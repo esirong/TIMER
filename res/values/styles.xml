@@ -20,5 +20,27 @@
      <item name="android:windowEnterAnimation">@anim/anim_popupwindow_in</item>
      <item name="android:windowExitAnimation">@anim/anim_popupwindow_out</item>
 </style>
+<style name="notfullscreen">
+       
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
+ </style>
+ <style name="dialogcustom">
 
+<item name="android:windowBackground">@null</item>
+
+<item name="android:layout_width">wrap_content</item>
+
+<item name="android:layout_height">wrap_content</item>
+
+<item name="android:windowNoTitle">true</item>
+
+<item name="android:windowIsTranslucent">true</item>
+
+<item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
+
+</style>
 </resources>

@@ -32,9 +32,7 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	private static final String SHAREDPREFERENCES_NAME = "first_pref";
 	private ViewPager viewpager;
 	private List<View> views;
-	// �ײ�С��ͼƬ  
     private ImageView[] dots;  
-    // ��¼��ǰѡ��λ��  
     private int currentIndex; 
     
 	@Override
@@ -168,7 +166,7 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	        SharedPreferences preferences = getSharedPreferences(
 	                SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
 	        Editor editor = preferences.edit();
-	        // �������
+	        
 	        editor.putBoolean("isFirstIn", false);
 	        // �ύ�޸�
 	        editor.commit();

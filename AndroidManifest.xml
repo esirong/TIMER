@@ -39,10 +39,12 @@
             android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         </activity>
         <!-- 编辑页 -->
-        <activity android:name="com.esirong.timer.activity.TaskEditActivity"
+        <activity
+            android:name="com.esirong.timer.activity.TaskEditActivity"
             android:theme="@style/Theme.Sherlock.Light" >
         </activity>
         <!--  -->
+
         <activity
             android:name="com.esirong.timer.activity.HomeActivity"
             android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
@@ -53,16 +55,20 @@
         <activity android:name="com.esirong.timer.activity.SettingActivity" >
         </activity>
         <activity
-            android:name=".ui.AlarmAlertActivity"
+            android:name="com.esirong.timer.activity.AlarmAlertActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" />
+            android:theme="@style/dialogcustom"
+           />
 
         <!-- ==== 服务组件配置===== -->
         <!-- 触妇器组件配置 -->
         <receiver android:name="com.esirong.timer.receiver.AlarmInitReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
             </intent-filter>
         </receiver>
         <receiver

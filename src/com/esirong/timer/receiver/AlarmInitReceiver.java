@@ -24,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.esirong.timer.DaoMaster;
 import com.esirong.timer.DaoMaster.DevOpenHelper;
@@ -51,12 +52,16 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         long currentDate = System.currentTimeMillis();
         taskDao = new AlertImpl(context) ;
         List<Task> list = taskDao.findTask(currentDate);
+        Toast.makeText(context, "AlarmInitReceiver"+list, 0).show();
 		for(Task task :list){
+			//TODO 一个任务可能有多次提醒
+			
 			 long alertDate = task.getAlert_at();
              Intent sender = new Intent(context, AlarmReceiver.class);
              PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, sender, 0);
              AlarmManager alermManager = (AlarmManager) context
                      .getSystemService(Context.ALARM_SERVICE);
+            
              alermManager.set(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
 		}
 		
