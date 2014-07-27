@@ -3,6 +3,7 @@ package com.esirong.timer.view;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.esirong.timer.R;
 import com.esirong.timer.Task;
+import com.esirong.timer.activity.AlarmAlertActivity;
 import com.esirong.timer.adapter.TaskListItemAdapter;
 import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.L;
@@ -146,6 +148,8 @@ public class TaskView extends FrameLayout implements View.OnClickListener,
 			case R.id.buttonA:
 				Toast.makeText(getContext(), "ring", 0).show();
 				L.i(TAG, "buttonA");
+				Intent intent = new Intent(getContext(),AlarmAlertActivity.class);
+				getContext().startActivity(intent);
 				break;
 			case R.id.buttonB:
 				L.i(TAG, "buttonB");

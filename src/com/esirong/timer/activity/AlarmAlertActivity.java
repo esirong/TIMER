@@ -33,8 +33,12 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.provider.Settings;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.esirong.timer.R;
 
@@ -44,15 +48,24 @@ public class AlarmAlertActivity extends Activity implements OnClickListener,
 		OnDismissListener {
 	private long mNoteId;
 	private String mSnippet;
-	private static final int SNIPPET_PREW_MAX_LEN = 60;
 	MediaPlayer mPlayer;
 	WakeLock mWakelock;
+	private LinearLayout layout; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
-setContentView(R.layout.activity_reminder);
+
+		setContentView(R.layout.activity_reminder);
+		layout = (LinearLayout) findViewById(R.id.task_bar); 
+		layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				// TODO Auto-generated method stub
+				return true;
+			}
+		});
 		final Window win = getWindow();
 		win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
@@ -66,15 +79,6 @@ setContentView(R.layout.activity_reminder);
 		Intent intent = getIntent();
 
 		try {
-			// mNoteId =
-			// Long.valueOf(intent.getData().getPathSegments().get(1));
-			// mSnippet = DataUtils.getSnippetById(this.getContentResolver(),
-			// mNoteId);
-			// mSnippet = mSnippet.length() > SNIPPET_PREW_MAX_LEN ?
-			// mSnippet.substring(0,
-			// SNIPPET_PREW_MAX_LEN) +
-			// getResources().getString(R.string.notelist_string_info)
-			// : mSnippet;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			return;
@@ -82,11 +86,17 @@ setContentView(R.layout.activity_reminder);
 
 		mPlayer = new MediaPlayer();
 		if (true) {
-//			showActionDialog();
-			playAlarmSound();
+			// showActionDialog();
+			// playAlarmSound();
 		} else {
 			finish();
 		}
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		finish();
+		return true;
 	}
 
 	@Override
@@ -97,7 +107,7 @@ setContentView(R.layout.activity_reminder);
 
 	private boolean isScreenOn() {
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		
+
 		return pm.isScreenOn();
 	}
 
@@ -177,5 +187,12 @@ setContentView(R.layout.activity_reminder);
 		if (mWakelock != null) {
 			mWakelock.release();
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		stopAlarmSound();
+		finish();
 	}
 }

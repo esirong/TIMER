@@ -58,7 +58,7 @@
             android:name="com.esirong.timer.activity.AlarmAlertActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@style/dialogcustom"
+            android:theme="@style/MyDialogStyle"
            />
 
         <!-- ==== 服务组件配置===== -->

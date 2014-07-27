@@ -1,6 +1,7 @@
 package com.esirong.timer.activity;
 
-import android.R;
+import com.esirong.timer.R;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -13,7 +14,7 @@ import android.support.v4.app.FragmentActivity;
 public class RemindActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle bundle) {
-		// TODO Auto-generated method stub
 		super.onCreate(bundle); 
+		setContentView(R.layout.activity_remind);
 	}
 }
