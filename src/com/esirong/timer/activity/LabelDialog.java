@@ -22,6 +22,11 @@ import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.Strings;
 import com.esirong.timer.util.Toasts;
 
+/***
+ * 标签设置对话框
+ * @author esirong
+ *
+ */
 public class LabelDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private Context mContext;
@@ -38,7 +43,7 @@ public class LabelDialog extends Dialog implements
 
 	private void init() {
 		setContentView(R.layout.todo_location_dialog);
-		setTitle("目标");
+		setTitle("标签");
 		ListView listview = (ListView) findViewById(R.id.list);
 		final LabelAdapter adapter = new LabelAdapter(list, mContext);
 		listview.setAdapter(adapter);
@@ -160,9 +165,9 @@ public class LabelDialog extends Dialog implements
 				if(Label ==null){
 					Label = new Label();
 					Label.setName(str);
-					long id = dao.insertLabel(Label);
+					dao.insertLabel(Label);
 					adapter.addList(Label);
-					adapter.getIsSelected().put(str, true);
+					LabelAdapter.getIsSelected().put(str, true);
 				}
 				
 				adapter.notifyDataSetChanged();

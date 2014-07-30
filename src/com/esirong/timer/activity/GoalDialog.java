@@ -22,13 +22,29 @@ import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.Strings;
 import com.esirong.timer.util.Toasts;
 
+/**
+ * 目标设置对话框
+ * @author esirong
+ *
+ */
 public class GoalDialog extends Dialog implements
 		android.view.View.OnClickListener {
+	/*上下文*/
 	private Context mContext;
+	/**数据访问操作*/
 	private TaskDao2 dao;
+	/** 所有列表项 */
+	private ArrayList<Goal> list = new ArrayList<Goal>();
+	/** 被先中列表项 */
+	private static HashMap<String, Boolean> isGoalSelected = new HashMap<>();
+	private TextView textview;
+	private EditText add_new;
+	private GoalAdapter adapter;
+	/**事务*/
+	private Task mTask;
+
 
 	public GoalDialog(Context context) {
-
 		super(context);
 		this.mContext = context;
 		dao = new TaskDao2(context);
@@ -40,19 +56,11 @@ public class GoalDialog extends Dialog implements
 		setContentView(R.layout.todo_location_dialog);
 		setTitle("目标");
 		ListView listview = (ListView) findViewById(R.id.list);
-		final GoalAdapter adapter = new GoalAdapter(list, mContext);
+		final GoalAdapter adapter = new GoalAdapter(mContext,list);
 		listview.setAdapter(adapter);
 	}
 
-	/** 所有列表项 */
-	private ArrayList<Goal> list = new ArrayList<Goal>();
-	/** 被先中列表项 */
-	private static HashMap<String, Boolean> isGoalSelected = new HashMap<>();
-	private TextView textview;
-	private EditText add_new;
-	private GoalAdapter adapter;
-	private Task mTask;
-
+	
 	public void initDialog(ArrayList<Goal> list, Task mTask) {
 		setContentView(R.layout.todo_location_dialog);
 		ListView listview = (ListView) findViewById(R.id.list);
@@ -60,15 +68,16 @@ public class GoalDialog extends Dialog implements
 		add_new = (EditText) findViewById(R.id.add_new);
 		this.mTask = mTask;
 
-		adapter = new GoalAdapter(list, mContext);
-
+		adapter = new GoalAdapter( mContext,list);
+		//查看所有目标，和当事务有关的则标记为选中。
 		for (Goal l : list) {
 			isGoalSelected.put(l.getName(), false);
 			if (mTask != null) {
 				Task_Goal task_Goal = dao
 						.findTaskGoal(mTask.getId(), l.getId());
 				if (task_Goal != null) {
-					Toasts.showToastShort(mContext, task_Goal+":"+mTask.getId()+":"+ l.getId());
+					Toasts.showToastShort(mContext,
+							task_Goal + ":" + mTask.getId() + ":" + l.getId());
 					isGoalSelected.put(l.getName(), true);
 				}
 			}
@@ -107,7 +116,6 @@ public class GoalDialog extends Dialog implements
 	}
 
 	public void setDataInfo(ArrayList<Goal> list) {
-
 		this.list = list;
 	}
 
@@ -135,17 +143,19 @@ public class GoalDialog extends Dialog implements
 						dao.insertTaskGoal(entity);
 					}
 
-					Toasts.showToastShort(mContext, entity +":"+mTask.getId().toString()+":"+goal.getId()+ "");
+					Toasts.showToastShort(mContext, entity + ":"
+							+ mTask.getId().toString() + ":" + goal.getId()
+							+ "");
 				} else {
 					Task_Goal entity = null;
 					Goal goal = dao.findGoal(set.getKey());
 					entity = dao.findTaskGoal(mTask.getId(), goal.getId());
-					if (entity != null) { 
+					if (entity != null) {
 						dao.deleteTaskGoal(entity);
 						Toasts.showToastShort(mContext, entity + "");
 					} else {
 					}
-					
+
 				}
 
 			}
@@ -154,17 +164,17 @@ public class GoalDialog extends Dialog implements
 			String str = add_new.getText().toString();
 			if (!Strings.isBlank(str)) {
 				add_new.setText("");
-				
+
 				Goal goal = null;
-				goal= dao.findGoal(str);
-				if(goal ==null){
+				goal = dao.findGoal(str);
+				if (goal == null) {
 					goal = new Goal();
 					goal.setName(str);
 					long id = dao.insertGoal(goal);
 					adapter.addList(goal);
 					adapter.getIsSelected().put(str, true);
 				}
-				
+
 				adapter.notifyDataSetChanged();
 			}
 

@@ -17,13 +17,15 @@ import com.esirong.timer.Address;
 import com.esirong.timer.Label;
 import com.esirong.timer.R;
 import com.esirong.timer.Task;
-import com.esirong.timer.Task_Label;
 import com.esirong.timer.adapter.ContextAdapter;
-import com.esirong.timer.adapter.LabelAdapter;
 import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.Strings;
-import com.esirong.timer.util.Toasts;
 
+/***
+ * 地点设置对话框
+ * @author esirong
+ *
+ */
 public class LocationDialog extends Dialog implements
 		android.view.View.OnClickListener {
 	private Context mContext;
@@ -46,7 +48,6 @@ public class LocationDialog extends Dialog implements
 	/** 所有列表项 */
 	private ArrayList<Label> list = new ArrayList<Label>();
 	/** 被先中列表项 */
-	private static HashMap<String, Boolean> isLabelSelected = new HashMap<>();
 	private TextView textview;
 	private EditText add_new;
 	private ContextAdapter adapter;
@@ -114,7 +115,7 @@ public class LocationDialog extends Dialog implements
 			for (Entry<String, Boolean> entity : selected.entrySet()) {
 				if (entity.getValue()) {
 					String str = entity.getKey();
-					Address address = dao.findAddress(str);
+					dao.findAddress(str);
 					mTask.setAddress(str);
 					dao.insertTask(mTask);
 				}

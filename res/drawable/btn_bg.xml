@@ -22,11 +22,5 @@
             <padding android:left="8.0dip" android:top="8.0dip" android:right="8.0dip" android:bottom="8.0dip" />
         </shape>
     </item>
-     <item android:state_selected="true">
-        <shape>
-            <corners android:radius="2.0dip" />
-            <gradient android:startColor="@color/color_bt_selected" android:endColor="@color/color_bt_selected" />
-            <padding android:left="8.0dip" android:top="8.0dip" android:right="8.0dip" android:bottom="8.0dip" />
-        </shape>
-    </item>
 </selector>
+

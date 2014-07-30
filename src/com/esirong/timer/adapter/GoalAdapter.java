@@ -27,7 +27,7 @@ public class GoalAdapter extends BaseAdapter {
 	private LayoutInflater inflater = null;
 
 	// 构造器
-	public GoalAdapter(ArrayList<Goal> list, Context context) {
+	public GoalAdapter(Context context,ArrayList<Goal> list) {
 		this.context = context;
 		this.list = list;
 		inflater = LayoutInflater.from(context);

@@ -38,31 +38,45 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esirong.timer.R;
+import com.esirong.timer.Task;
+import com.esirong.timer.db.TaskDao2;
 
 //标题：操作（关闭，延时，完成，）
 //延时：5，10，1h,明天
 public class AlarmAlertActivity extends Activity implements OnClickListener,
-		OnDismissListener {
+		OnDismissListener, android.view.View.OnClickListener {
+	public static final String TASK_KEY = "task_id";
+	private TaskDao2 dao;
 	private long mNoteId;
 	private String mSnippet;
 	MediaPlayer mPlayer;
 	WakeLock mWakelock;
-	private LinearLayout layout; 
+	private LinearLayout layout;
+
+	private Button close;
+	private Button delay;
+	private Button start;
+	private Button done;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		dao = new TaskDao2(this);
 		setContentView(R.layout.activity_reminder);
-		layout = (LinearLayout) findViewById(R.id.task_bar); 
+		initViews();
+		layout = (LinearLayout) findViewById(R.id.task_bar);
 		layout.setOnTouchListener(new OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1) {
-				// TODO Auto-generated method stub
+				// TODO 不做处理
 				return true;
 			}
 		});
@@ -79,7 +93,31 @@ public class AlarmAlertActivity extends Activity implements OnClickListener,
 		Intent intent = getIntent();
 
 		try {
-		} catch (IllegalArgumentException e) {
+			Long taskid = intent.getLongExtra(TASK_KEY, -1);
+			Task task = dao.findTask(taskid);
+			if (task != null) {
+				TextView text = (TextView) findViewById(R.id.task_title);
+				text.setText(task.getTitle());
+				ImageView type = (ImageView) findViewById(R.id.task_type);
+				type.setImageResource(R.drawable.type1);
+
+				if ("type1".equals(task.getType())) {
+					type.setBackgroundResource(R.drawable.type1);
+
+				}
+				if ("type2".equals(task.getType())) {
+					type.setBackgroundResource(R.drawable.type2);
+				}
+				if ("type3".equals(task.getType())) {
+					type.setBackgroundResource(R.drawable.type3);
+				}
+				if ("type4".equals(task.getType())) {
+					type.setBackgroundResource(R.drawable.type4);
+				}
+
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
@@ -91,6 +129,19 @@ public class AlarmAlertActivity extends Activity implements OnClickListener,
 		} else {
 			finish();
 		}
+	}
+
+	private void initViews() {
+		close = (Button) findViewById(R.id.operation_close);
+		delay = (Button) findViewById(R.id.operation_delay);
+		start = (Button) findViewById(R.id.operation_start);
+		done = (Button) findViewById(R.id.operation_done);
+		;
+		close.setOnClickListener(this);
+		delay.setOnClickListener(this);
+		start.setOnClickListener(this);
+		done.setOnClickListener(this);
+
 	}
 
 	@Override
@@ -194,5 +245,19 @@ public class AlarmAlertActivity extends Activity implements OnClickListener,
 		super.onBackPressed();
 		stopAlarmSound();
 		finish();
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v == close) {
+			Toast.makeText(getApplicationContext(), "close", 0).show();
+		} else if (v == delay) {
+			Toast.makeText(getApplicationContext(), "delay", 0).show();
+		} else if (v == start) {
+			Toast.makeText(getApplicationContext(), "start", 0).show();
+		} else if (v == done) {
+			Toast.makeText(getApplicationContext(), "done", 0).show();
+		}
+
 	}
 }

@@ -51,8 +51,12 @@
         </activity>
         <activity android:name="com.esirong.timer.activity.GuideActivity" >
         </activity>
+       
         <!-- 设置 -->
         <activity android:name="com.esirong.timer.activity.SettingActivity" >
+        </activity>
+        <!-- 设置提醒 -->
+         <activity android:name="com.esirong.timer.activity.RemindActivity" >
         </activity>
         <activity
             android:name="com.esirong.timer.activity.AlarmAlertActivity"

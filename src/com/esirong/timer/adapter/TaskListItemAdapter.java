@@ -53,8 +53,8 @@ public class TaskListItemAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return mInfos.get(position-1);
+	public Task getItem(int position) {
+		return mInfos.get(position);
 	}
 
 	@Override

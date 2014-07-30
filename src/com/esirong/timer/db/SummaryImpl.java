@@ -1,5 +1,7 @@
 package com.esirong.timer.db;
 
+import com.esirong.timer.Task;
+
 public class SummaryImpl implements SummaryDao {
 
 	@Override
@@ -36,6 +38,12 @@ public class SummaryImpl implements SummaryDao {
 	public int getPercentType(int taskType) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Task getCurrentTask() {
+		return null;
+		
 	}
 
 }

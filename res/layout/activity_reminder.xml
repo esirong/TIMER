@@ -13,12 +13,14 @@
         android:paddingTop="20dp" >
 
         <ImageView
+            android:id="@+id/task_type"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="10dp"
             android:background="@color/taskTypeColor1" />
 
         <TextView
+            android:id="@+id/task_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -38,21 +40,25 @@
             android:paddingTop="10dp" >
 
             <Button
+                android:id="@+id/operation_close"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="关闭" />
 
             <Button
+                 android:id="@+id/operation_delay"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="延时" />
 
             <Button
+                android:id="@+id/operation_start"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="开始" />
 
             <Button
+                android:id="@+id/operation_done"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="完成" />

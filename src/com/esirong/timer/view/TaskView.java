@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.esirong.timer.R;
 import com.esirong.timer.Task;
 import com.esirong.timer.activity.AlarmAlertActivity;
+import com.esirong.timer.activity.RemindActivity;
 import com.esirong.timer.adapter.TaskListItemAdapter;
 import com.esirong.timer.db.TaskDao2;
 import com.esirong.timer.util.L;
@@ -146,14 +147,23 @@ public class TaskView extends FrameLayout implements View.OnClickListener,
 			// TODO Auto-generated method stub
 			switch (clickedView.getId()) {
 			case R.id.buttonA:
-				Toast.makeText(getContext(), "ring", 0).show();
+		
+				L.i(TAG, "buttonB");
+				Toast.makeText(getContext(), "buttonB", 0).show();
 				L.i(TAG, "buttonA");
-				Intent intent = new Intent(getContext(),AlarmAlertActivity.class);
-				getContext().startActivity(intent);
+				Intent intent2 = new Intent(getContext(),RemindActivity.class);
+				Task task2 = listViewAdapter.getItem(position);
+				getContext().startActivity(intent2);
 				break;
 			case R.id.buttonB:
 				L.i(TAG, "buttonB");
-				Toast.makeText(getContext(), "buttonB", 0).show();
+				Toast.makeText(getContext(), "ring", 0).show();
+				L.i(TAG, "buttonA");
+				Intent intent = new Intent(getContext(),AlarmAlertActivity.class);
+				Task task = listViewAdapter.getItem(position);
+				intent.putExtra(AlarmAlertActivity.TASK_KEY,task.getId());
+				
+				getContext().startActivity(intent);
 				break;
 			case R.id.buttonC:
 				L.i(TAG, "buttonC");

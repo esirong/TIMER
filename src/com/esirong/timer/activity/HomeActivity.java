@@ -10,14 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.esirong.timer.DaoMaster;
 import com.esirong.timer.DaoMaster.DevOpenHelper;
 import com.esirong.timer.DaoSession;
 import com.esirong.timer.R;
+import com.esirong.timer.Task;
 import com.esirong.timer.TaskDao;
 import com.esirong.timer.db.SummaryDao;
 import com.esirong.timer.db.SummaryImpl;
@@ -35,7 +36,13 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private  SummaryDao dao;
 
 	private Cursor cursor;
-
+	private Task mTask;
+	//当前事务操作按钮
+	private Button btn_start;
+	private Button btn_delay;
+	private Button btn_close;
+	private Button btn_done;
+	
 	private View viewButton;
 	private View settingButton;
 	private View currentTaskPanel;
@@ -63,6 +70,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	}
 	private void initView() {
 		viewButton = findViewById(R.id.go_head);
+		btn_start = (Button) findViewById(R.id.btn_start);
+		btn_delay = (Button) findViewById(R.id.btn_delay);
+		btn_close = (Button) findViewById(R.id.btn_close);
+		btn_done = (Button) findViewById(R.id.btn_done);
 		settingButton= findViewById(R.id.go_setting);
 		currentTaskPanel = findViewById(R.id.current_task_panel);
 		typeTaskPanel1 = findViewById(R.id.type1_task_panel);
@@ -77,6 +88,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	int undone = dao.getCount4Undone();
 	double efficient = 	dao.getEfficientPercent();
 	int total = dao.getTotals();
+	mTask = dao.getCurrentTask();
 	TextView doneText = (TextView) currentTaskPanel.findViewById(R.id.done_percent);
 	TextView efficientText = (TextView) currentTaskPanel.findViewById(R.id.efficient_percent);
 	doneText.setText("完成："+done+"/"+total);	
@@ -84,6 +96,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	}
 	private void setOnListener() {
 		// TODO Auto-generated method stub
+		btn_start.setOnClickListener(this);
+		btn_delay.setOnClickListener(this);
+		btn_close.setOnClickListener(this);
+		btn_done.setOnClickListener(this);
 		currentTaskPanel.setOnClickListener(this);
 		typeTaskPanel1.setOnClickListener(this);
 		typeTaskPanel2.setOnClickListener(this);
@@ -97,6 +113,18 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
+		case R.id.btn_start:
+			Toasts.showToastShort(getApplicationContext(), "btn_start");
+			break;
+		case R.id.btn_delay:
+			Toasts.showToastShort(getApplicationContext(), "btn_delay");
+			break;
+		case R.id.btn_close:
+			Toasts.showToastShort(getApplicationContext(), "btn_close");
+			break;
+		case R.id.btn_done:
+			Toasts.showToastShort(getApplicationContext(), "btn_done");
+			break;
 		case R.id.go_head:
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);

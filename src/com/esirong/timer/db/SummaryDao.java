@@ -1,5 +1,7 @@
 package com.esirong.timer.db;
 
+import com.esirong.timer.Task;
+
 
 /**
  * 概述 将操个数据获统计获取总概述
@@ -51,4 +53,9 @@ public interface SummaryDao {
 	 * @return
 	 */
 	public int getPercentType(int taskType);
+
+	/**
+	 * 获取最近的当前事务：如果有重叠时，按优先级，按加入时间排序
+	 */
+	public Task getCurrentTask();
 }
