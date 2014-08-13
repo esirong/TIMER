@@ -50,13 +50,13 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private View typeTaskPanel2;
 	private View typeTaskPanel3;
 	private View typeTaskPanel4;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_home);
 		dao = new SummaryImpl();
-		getActionBar().setDisplayHomeAsUpEnabled(false);
-		getActionBar().setDisplayShowTitleEnabled(true);
+		initActionBar();
 		initView();
 		initData();
 		setOnListener();
@@ -66,6 +66,12 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		daoMaster = new DaoMaster(db);
 		daoSession = daoMaster.newSession();
 		taskDao = daoSession.getTaskDao();
+		
+	}
+	
+	private void initActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setDisplayShowTitleEnabled(true);
 		
 	}
 	private void initView() {
@@ -89,6 +95,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	double efficient = 	dao.getEfficientPercent();
 	int total = dao.getTotals();
 	mTask = dao.getCurrentTask();
+	mTask = new Task();
 	TextView doneText = (TextView) currentTaskPanel.findViewById(R.id.done_percent);
 	TextView efficientText = (TextView) currentTaskPanel.findViewById(R.id.efficient_percent);
 	doneText.setText("完成："+done+"/"+total);	
@@ -114,15 +121,19 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_start:
+			//这件处理完成则。则提示下一事务（在30分钟内到期的）
 			Toasts.showToastShort(getApplicationContext(), "btn_start");
 			break;
 		case R.id.btn_delay:
+			//这件处理完成则。则提示下一事务（在30分钟内到期的）
 			Toasts.showToastShort(getApplicationContext(), "btn_delay");
 			break;
 		case R.id.btn_close:
 			Toasts.showToastShort(getApplicationContext(), "btn_close");
+			//这件处理完成则。则提示下一事务（在30分钟内到期的）
 			break;
 		case R.id.btn_done:
+			//这件处理完成则。则提示下一事务（在30分钟内到期的）
 			Toasts.showToastShort(getApplicationContext(), "btn_done");
 			break;
 		case R.id.go_head:

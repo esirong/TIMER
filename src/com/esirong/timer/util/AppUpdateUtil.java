@@ -25,7 +25,6 @@ import static org.xmlpull.v1.XmlPullParser.END_DOCUMENT;
 
 
 /**
- * �汾��
  * @author esirong
  *
  */
@@ -36,12 +35,7 @@ public class AppUpdateUtil{
 	AppUpdateUtil(Context mcontext){
 		this.mcontext = mcontext;
 	}
-	/**
-	 * ��������Ϣ
-	 * @param inStream ������
-	 * @return
-	 * @throws XmlPullParserException
-	 */
+	
 	public static UpdateInfo getUpdateInfo(InputStream inStream) throws XmlPullParserException {
 		try {
 			XmlPullParser parser = Xml.newPullParser();
@@ -100,9 +94,7 @@ public class AppUpdateUtil{
 	 * @param mcontext
 	 */
 	public static void checkForUdpate(final Context mcontext) {
-		/*
-		 * ��ȡ������Ϣ
-		 */
+		
 		updateInfo = getUpdateInfo();
 		if(updateInfo == null){
 			return;

@@ -17,7 +17,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="10dp"
-            android:background="@color/taskTypeColor1" />
+            android:background="@drawable/type2" />
 
         <TextView
             android:id="@+id/task_title"

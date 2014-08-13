@@ -16,22 +16,26 @@
 
 package com.esirong.timer.receiver;
 
-import com.esirong.timer.activity.AlarmAlertActivity;
-import com.esirong.timer.activity.MainActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.esirong.timer.activity.AlarmAlertActivity;
+import com.esirong.timer.util.L;
+
+/**
+ * 接受提醒发生的事务
+ * @author esirong
+ *
+ */
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         intent.setClass(context, AlarmAlertActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-        Log.d("", "提醒");
+        L.d("", "提醒");
         Toast.makeText(context, "提醒", 0).show();
     }
 }

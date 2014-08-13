@@ -15,6 +15,11 @@ import com.esirong.timer.DaoMaster.DevOpenHelper;
 import de.greenrobot.dao.query.LazyList;
 import de.greenrobot.dao.query.QueryBuilder;
 
+/**
+ * 提醒数据管理帮助类
+ * @author esirong
+ *
+ */
 public class AlertImpl implements AlertDao {
 	private DaoSession daoSession;
 	public AlertImpl(Context cxt){
@@ -29,7 +34,7 @@ public class AlertImpl implements AlertDao {
 		TaskDao dao = daoSession.getTaskDao();
 		QueryBuilder<Task> qb = dao.queryBuilder();
 		qb.where( com.esirong.timer.TaskDao
-				.Properties.Alert_at.gt(time));
+				.Properties.Alert_at.ge(time));
 		LazyList<Task> list = qb.listLazy();
 		ArrayList<Task> tasks = new ArrayList<Task>(list);
 		return tasks;

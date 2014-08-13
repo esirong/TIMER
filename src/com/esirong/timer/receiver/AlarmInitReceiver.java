@@ -23,68 +23,51 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
-import com.esirong.timer.DaoMaster;
-import com.esirong.timer.DaoMaster.DevOpenHelper;
-import com.esirong.timer.DaoSession;
 import com.esirong.timer.Task;
 import com.esirong.timer.db.AlertDao;
 import com.esirong.timer.db.AlertImpl;
+import com.esirong.timer.util.Toasts;
 
-
+/**
+ * 接受初始化的广播。包括开机关机，和晚上0点转换，时区的变化。都将触发重新设定时间
+ * @author esirong
+ *
+ */
 public class AlarmInitReceiver extends BroadcastReceiver {
 
-//    private static final String [] PROJECTION = new String [] {
-//        NoteColumns.ID,
-//        NoteColumns.ALERTED_DATE
-//    };
-
-    private static final int COLUMN_ID                = 0;
-    private static final int COLUMN_ALERTED_DATE      = 1;
-    private DaoMaster daoMaster;
-	private DaoSession daoSession;
 	private AlertDao taskDao;
-	private SQLiteDatabase db;
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        long currentDate = System.currentTimeMillis();
-        taskDao = new AlertImpl(context) ;
-        List<Task> list = taskDao.findTask(currentDate);
-        Toast.makeText(context, "AlarmInitReceiver"+list, 0).show();
-		for(Task task :list){
-			//TODO 一个任务可能有多次提醒
-			
-			 long alertDate = task.getAlert_at();
-             Intent sender = new Intent(context, AlarmReceiver.class);
-             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, sender, 0);
-             AlarmManager alermManager = (AlarmManager) context
-                     .getSystemService(Context.ALARM_SERVICE);
-            
-             alermManager.set(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		Toasts.showToastLong(context, "接受广播");
+
+		// 获取需要提醒的事务
+		List<Task> list = getAlertTasks(context);
+		// 设置提醒
+		initAlertTasks(context, list);
+	}
+
+	private void initAlertTasks(Context context, List<Task> list) {
+		for (Task task : list) {
+			long alertDate = task.getAlert_at();
+			Intent sender = new Intent(context, AlarmReceiver.class);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+					0, sender, 0);
+			AlarmManager alermManager = (AlarmManager) context
+					.getSystemService(Context.ALARM_SERVICE);
+			alermManager.set(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
 		}
-		
-		
-//        Cursor c = context.getContentResolver().query(Notes.CONTENT_NOTE_URI,
-//                PROJECTION,
-//                NoteColumns.ALERTED_DATE + ">? AND " + NoteColumns.TYPE + "=" + Notes.TYPE_NOTE,
-//                new String[] { String.valueOf(currentDate) },
-//                null);
-//
-//        if (c != null) {
-//            if (c.moveToFirst()) {
-//                do {
-//                    long alertDate = c.getLong(COLUMN_ALERTED_DATE);
-//                    Intent sender = new Intent(context, AlarmReceiver.class);
-//                    sender.setData(ContentUris.withAppendedId(Notes.CONTENT_NOTE_URI, c.getLong(COLUMN_ID)));
-//                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, sender, 0);
-//                    AlarmManager alermManager = (AlarmManager) context
-//                            .getSystemService(Context.ALARM_SERVICE);
-//                    alermManager.set(AlarmManager.RTC_WAKEUP, alertDate, pendingIntent);
-//                } while (c.moveToNext());
-//            }
-//            c.close();
-//        }
-    }
+
+	}
+
+	//获取需要提醒的事务
+	private List<Task> getAlertTasks(Context context) {
+		// TODO 获取提醒的事务
+		taskDao = new AlertImpl(context);
+		long currentDate = System.currentTimeMillis();
+		List<Task> list = taskDao.findTask(currentDate);
+		Toasts.showToastLong(context, "AlarmInitReceiver" + list);
+		return list;
+
+	}
 }

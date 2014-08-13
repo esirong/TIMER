@@ -159,6 +159,13 @@ public class TaskEditActivity extends FragmentActivity implements
 		end_date_at_tv = (TextView) findViewById(R.id.end_date_at_tv);
 		end_time_at_tv = (TextView) findViewById(R.id.end_time_at_tv);
 		allDay = (Button) findViewById(R.id.allday_btn);
+		//初设默认时间
+		Calendar cal = Calendar.getInstance();
+		start_date_at_tv.setText(formateDate(cal.getTimeInMillis()));
+		start_time_at_tv.setText(formateDate(cal.getTimeInMillis()));
+		end_date_at_tv.setText(formateDate(cal.getTimeInMillis()+3600));
+		end_time_at_tv.setText(formateDate(cal.getTimeInMillis()+3600));
+		
 		// 可选项
 		panel = (ViewGroup) findViewById(R.id.options_panel);
 		reminder_btn = (Button) findViewById(R.id.reminder);
@@ -238,8 +245,10 @@ public class TaskEditActivity extends FragmentActivity implements
 			showEndTimeDialog();
 		} else if (v == add_btn) {
 			saveTask();
+			startAt.requestFocus();
 		} else if (v == delete_btn) {
 			deleteTask();
+			finish();
 		} else if (v == allDay) {
 			switchALLDay();
 		} else if (v == reminder_btn) {

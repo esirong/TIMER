@@ -97,22 +97,21 @@ public class TaskDao2 {
 	public void insertTask() {
 	}
 
-	// ��������
-	public void updateTask() {
+	// 更新
+	public void updateTask(Task task) {
 	}
 
-	// ɾ������
+	// 删除指定id的事务
 	public void deleteTask(Long taskid) {
 		TaskDao dao = daoSession.getTaskDao();
 		dao.deleteByKey(taskid);
 	}
 
-	// ɾ�����е�
+	// 
 	public void deleteAllTask() {
 	}
 
-	// ����
-	// ��ȡ��������
+	//
 	public void queryCoverInfo() {
 
 	}

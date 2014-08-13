@@ -25,9 +25,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:visibility="visible"
                     android:animateLayoutChanges="true"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
 
                     <Button
                         android:id="@+id/delete_btn"
@@ -69,7 +69,7 @@
                             android:layout_width="32.0dip"
                             android:layout_height="32.0dip"
                             android:layout_gravity="center_horizontal"
-                            android:src="@color/backgroudColor" />
+                            android:src="@drawable/type1" />
 
                         <TextView
                             android:id="@id/PartnerName"
@@ -185,15 +185,19 @@
                                 android:id="@+id/start_date_at_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="date" >
+                                android:text="date"
+                                android:textColor="@color/CopyrightColor"
+                                android:textSize="18sp" >
                             </TextView>
 
                             <TextView
-                                 android:id="@+id/start_time_at_tv"
+                                android:id="@+id/start_time_at_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
-                                android:text="time" >
+                                android:layout_marginTop="5dp"
+                                android:text="time"
+                                android:textColor="@color/ButtonColorBlue" >
                             </TextView>
                         </RelativeLayout>
 
@@ -201,7 +205,6 @@
                             android:id="@+id/end_at"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
-                            android:layout_marginTop="2.5dp"
                             android:background="@drawable/edit_bg_card_color_selector" >
 
                             <TextView
@@ -209,16 +212,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="date"
-                                android:textSize="16sp" >
+                                android:textColor="@color/CopyrightColor"
+                                android:textSize="18sp" >
                             </TextView>
 
                             <TextView
-                                 android:id="@+id/end_time_at_tv"
-                                android:layout_width="match_parent"
+                                android:id="@+id/end_time_at_tv"
+                                  android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
+                                android:layout_marginTop="5dp"
                                 android:text="time"
-                                android:textSize="18sp" >
+                                android:textColor="@color/ButtonColorBlue" >
                             </TextView>
                         </RelativeLayout>
                     </LinearLayout>
@@ -226,9 +231,9 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:visibility="gone"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/edit_bg_card_color_selector" >
+                        android:background="@drawable/edit_bg_card_color_selector"
+                        android:visibility="gone" >
 
                         <Button
                             android:id="@+id/allday_btn"
@@ -271,15 +276,15 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="5dp"
-                         android:background="#343434"
+                        android:background="#343434"
                         android:text="标签" />
 
                     <Button
                         android:id="@+id/goal"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                         android:background="#343434"
                         android:layout_margin="5dp"
+                        android:background="#343434"
                         android:text="目标" />
                 </LinearLayout>
                 <!-- comment -->
@@ -332,6 +337,7 @@
                         android:layout_height="50dp"
                         android:text="标签" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/goal_"
                     android:layout_width="match_parent"

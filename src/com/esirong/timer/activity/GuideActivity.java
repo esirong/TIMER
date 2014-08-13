@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import com.esirong.timer.R;
 
 /**
+ * 使用引导
  * @author esirong
  *
  */
@@ -39,16 +40,11 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//ȥ�����
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		//ȫ��
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);   //
 		setContentView(R.layout.activity_guide);
-		// ��ʼ��ҳ��  
         initViews();  
-        // ��ʼ���ײ�С��  
         initDots();
-        //���ü���
         setListener();
 		
 	}
@@ -58,7 +54,6 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	}
 
 	/**
-	 * ��ʼ�ײ�С��
 	 */
 	private void initDots() {
 		// TODO Auto-generated method stub
@@ -76,7 +71,6 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	}
 	
 	/**
-	 * ���õ�ǰ��
 	 * @param position
 	 */
 	private void setCurrentDot(int position){
@@ -89,26 +83,22 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	}
 
 	/**
-	 * ��ʼ��ҳ
 	 */
 	private void initViews() {
 		// TODO Auto-generated method stub
 		LayoutInflater inflater = LayoutInflater.from(this);
 		views = new ArrayList<View>();
-		// ��ʼ����ͼƬ�б�  
         views.add(inflater.inflate(R.layout.what_new_one, null));  
         views.add(inflater.inflate(R.layout.what_new_two, null));  
         views.add(inflater.inflate(R.layout.what_new_three, null));  
         views.add(inflater.inflate(R.layout.what_new_four, null));  
 		
-        // ��ʼ��Adapter  
         viewpager = (ViewPager) findViewById(R.id.viewpager);  
         viewpager.setAdapter(new MyPagerAdapter()); 
         viewpager.setOnPageChangeListener(this);
 		
 	}
 
-	//view����================================================
 	
 	class MyPagerAdapter extends PagerAdapter {
 
@@ -141,16 +131,14 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 		public Object instantiateItem(ViewGroup container, int position) {
 			container.addView(views.get(position), 0);
 			if(position == views.size() -1){
-				//�����ҳ
 				 ImageView mStartImageButton = (ImageView) container
 		                    .findViewById(R.id.iv_start);
 		            mStartImageButton.setOnClickListener(new OnClickListener() {
 
 		                @Override
 		                public void onClick(View v) {
-		                    // �����Ѿ���
 		                    setGuided();
-		                    goMain();
+		                    startMainActivity();
 		                }
 
 		            });
@@ -172,8 +160,7 @@ public class GuideActivity extends Activity implements OnPageChangeListener{
 	        editor.commit();
 	    }
 	 
-	 private void goMain() {
-	        // ��ת
+	 private void startMainActivity() {
 	        Intent intent = new Intent(GuideActivity.this, MainActivity.class);
 	        GuideActivity.this.startActivity(intent);
 	        GuideActivity.this.finish();
