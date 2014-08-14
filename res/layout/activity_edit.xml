@@ -69,7 +69,7 @@
                             android:layout_width="32.0dip"
                             android:layout_height="32.0dip"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/type1" />
+                            android:background="@drawable/type1" />
 
                         <TextView
                             android:id="@id/PartnerName"
@@ -82,7 +82,8 @@
                             android:singleLine="true"
                             android:text="广东"
                             android:textColor="@color/colorLightGray"
-                            android:textSize="10.0sp" />
+                            android:textSize="10.0sp"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <TextView
@@ -129,7 +130,8 @@
                                 android:text="!"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="18.0sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -154,7 +156,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="right"
                                 android:singleLine="true"
-                                android:text="未开始"
+                                android:text=""
                                 android:textColor="@color/colorLightGray"
                                 android:textSize="12.0sp" />
                         </LinearLayout>
@@ -177,17 +179,18 @@
                         <RelativeLayout
                             android:id="@+id/start_at"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="2.5dp"
-                            android:background="@drawable/edit_bg_card_color_selector" >
+                            android:background="@drawable/edit_bg_card_color_selector"
+                            android:paddingRight="10dp" >
 
                             <TextView
                                 android:id="@+id/start_date_at_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="date"
+                                android:text="2014年2月4日"
                                 android:textColor="@color/CopyrightColor"
-                                android:textSize="18sp" >
+                                android:textSize="12sp" >
                             </TextView>
 
                             <TextView
@@ -195,16 +198,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
-                                android:layout_marginTop="5dp"
-                                android:text="time"
-                                android:textColor="@color/ButtonColorBlue" >
+                                android:layout_below="@+id/start_date_at_tv"
+                                android:text="12:12:12"
+                                android:textColor="@color/TextColorBlue"
+                                android:textSize="24sp" >
                             </TextView>
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:id="@+id/end_at"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:paddingRight="10dp"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/edit_bg_card_color_selector" >
 
                             <TextView
@@ -213,15 +218,17 @@
                                 android:layout_height="wrap_content"
                                 android:text="date"
                                 android:textColor="@color/CopyrightColor"
-                                android:textSize="18sp" >
+                                android:textSize="12sp" >
                             </TextView>
 
                             <TextView
                                 android:id="@+id/end_time_at_tv"
-                                  android:layout_width="match_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:paddingRight="10dp"
                                 android:layout_alignParentBottom="true"
-                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/end_date_at_tv"
+                                android:textSize="24sp"
                                 android:text="time"
                                 android:textColor="@color/ButtonColorBlue" >
                             </TextView>
