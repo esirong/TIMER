@@ -5,15 +5,16 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -29,13 +30,16 @@ import com.esirong.timer.model.Reminder;
  * 
  */
 public class RemindActivity extends FragmentActivity implements
-		OnItemClickListener {
+		OnItemClickListener, OnClickListener {
 
-	private static final String TASK_KEY = "taskid";
+	/**
+	 * 传入事务ID
+	 */
+	public static final String TASK_KEY = "taskid";
 	private Task task;
 	private GridView gridView;
+	private Button saveButton;
 	private RemindAdapter adapter;
-	private int selected = 1;
 	private TaskDao2 dao;
 	private TextView title;
 	private ArrayList<Reminder> list = new ArrayList<Reminder>();
@@ -52,9 +56,10 @@ public class RemindActivity extends FragmentActivity implements
 		if (task != null) {
 			title = (TextView) findViewById(R.id.task_title);
 			title.setText(task.getTitle());
+
 		}
 		adapter = new RemindAdapter();
-		List list = initItems();
+		List<Reminder> list = initItems();
 		adapter.setRemiderItem(list);
 		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(this);
@@ -70,20 +75,54 @@ public class RemindActivity extends FragmentActivity implements
 
 	}
 
-	private List initItems() {
-		
-		list.add(new Reminder("准时"));
-		list.add(new Reminder("提前5分钟"));
-		list.add(new Reminder("提前10分钟"));
-		list.add(new Reminder("提前15分钟"));
-		list.add(new Reminder("提前30分钟"));
-		list.add(new Reminder("提前1小时"));
-		list.add(new Reminder("自定义"));
+	private List<Reminder> initItems() {
+
+		list.add(new Reminder("准时", 0));
+		list.add(new Reminder("提前5分钟", 5));
+		list.add(new Reminder("提前10分钟", 10));
+		list.add(new Reminder("提前15分钟", 15));
+		list.add(new Reminder("提前30分钟", 30));
+		list.add(new Reminder("提前1小时", 60));
+		list.add(new Reminder("自定义", 0));
+		initTaskAlertTime();
 		return list;
+	}
+
+	private void initTaskAlertTime() {
+		Long start = task.getStart_at();
+		Long alert = task.getAlert_at();
+		if(alert == null||start ==null){
+			return;
+		}
+		long delay = alert - start;
+		if (delay == 0) {
+			list.get(0).setSelected(true);
+		}
+		else if (delay == 5*60*1000) {
+			list.get(1).setSelected(true);
+		}
+		else if (delay == 10*60*1000) {
+			list.get(2).setSelected(true);
+		}
+		else if (delay == 15*60*1000) {
+			list.get(3).setSelected(true);
+		}
+		else if (delay == 30*60*1000) {
+			list.get(4).setSelected(true);
+		}
+		else if (delay == 60*60*1000) {
+			list.get(5).setSelected(true);
+		}else{
+			list.get(6).setSelected(true);
+		}
+		
+
 	}
 
 	private void initView() {
 		gridView = (GridView) findViewById(R.id.gridview);
+		saveButton = (Button) findViewById(R.id.save_btn);
+		saveButton.setOnClickListener(this);
 
 	}
 
@@ -96,7 +135,7 @@ public class RemindActivity extends FragmentActivity implements
 			return itemsList.size();
 		}
 
-		public void setRemiderItem(List list) {
+		public void setRemiderItem(List<Reminder> list) {
 			itemsList = list;
 
 		}
@@ -113,12 +152,12 @@ public class RemindActivity extends FragmentActivity implements
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Reminder reminder = (Reminder) itemsList.get(position);
+			Reminder reminder = itemsList.get(position);
 			ViewHolder holder = null;
 
 			if (convertView == null) {
 				holder = new ViewHolder();
-				convertView = parent.inflate(getApplicationContext(),
+				convertView = View.inflate(getApplicationContext(),
 						R.layout.reminder_item, null);
 
 				holder.reminder_text = (TextView) convertView
@@ -129,10 +168,14 @@ public class RemindActivity extends FragmentActivity implements
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.reminder_text.setText(reminder.getName());
-			if(reminder.isSelected()){
-				convertView.setBackgroundColor(Color.RED);
-			}else{
-				convertView.setBackgroundResource(R.drawable.reminder_item_bg_card_color_selector);
+			if (reminder.isSelected()) {
+				convertView.setSelected(true);
+				convertView
+						.setBackgroundResource(R.drawable.abs__ab_bottom_solid_dark_holo);
+			} else {
+				convertView.setSelected(false);
+				convertView
+						.setBackgroundResource(R.drawable.reminder_item_bg_card_color_selector);
 			}
 			return convertView;
 		}
@@ -146,17 +189,54 @@ public class RemindActivity extends FragmentActivity implements
 	public void onItemClick(AdapterView<?> parent, View view, int postion,
 			long arg3) {
 		Reminder reminder = adapter.getItem(postion);
+		clearSelected();
 		reminder.setSelected(!reminder.isSelected());
-		
+		if (reminder.isSelected()) {
+			title.setText(reminder.getName());
+		}
+
 		adapter.notifyDataSetChanged();
 
 	}
+
+	private void clearSelected() {
+
+		for (Reminder r : list) {
+			r.setSelected(false);
+		}
+	}
+
 	@Override
 	protected void onDestroy() {
 		Intent data = new Intent();
-		ArrayList<String> value = new ArrayList<String>();
+		data.putExtra("key", list);
 		setResult(Activity.RESULT_OK, data);
+		saveToDB();
 		super.onDestroy();
 	}
-	
+
+	// 保存到数据库
+	private void saveToDB() {
+		for (Reminder r : list) {
+			if (r.isSelected()) {
+				long times;
+				times = task.getStart_at() + r.getDelay()*60*1000;
+				task.setAlert_at(times);
+			}
+		}
+
+		dao.insertTask(task);
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v == null) {
+		} else if (v == saveButton) {
+			saveToDB();
+			finish();
+		}
+
+	}
+
 }

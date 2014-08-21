@@ -101,7 +101,7 @@ public class TaskView extends FrameLayout implements View.OnClickListener,
 	private void parseData() {
 	}
 
-	// 鐠佸墽鐤嗛弰鍓с仛閸婏拷
+	//
 	private void setValue() {
 	}
 
@@ -151,8 +151,10 @@ public class TaskView extends FrameLayout implements View.OnClickListener,
 				L.i(TAG, "buttonB");
 				Toast.makeText(getContext(), "buttonB", 0).show();
 				L.i(TAG, "buttonA");
+			
 				Intent intent2 = new Intent(getContext(),RemindActivity.class);
 				Task task2 = listViewAdapter.getItem(position);
+				intent2.putExtra(RemindActivity.TASK_KEY, task2.getId());
 				getContext().startActivity(intent2);
 				break;
 			case R.id.buttonB:
@@ -210,4 +212,5 @@ public class TaskView extends FrameLayout implements View.OnClickListener,
 			return tasks;
 		}
 	}
+	
 }
