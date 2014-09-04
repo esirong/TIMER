@@ -5,7 +5,11 @@
     android:versionName="1.0" >
 
     <!-- 授权 -->
+    <!-- 接受启动完成广播 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 查看网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 写SDCARD权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 环境 -->
     <uses-sdk
@@ -19,6 +23,7 @@
     <!-- 应用基本配置 -->
     <application
         android:allowBackup="true"
+        android:configChanges="keyboardHidden|orientation|screenSize"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -51,19 +56,18 @@
         </activity>
         <activity android:name="com.esirong.timer.activity.GuideActivity" >
         </activity>
-       
+
         <!-- 设置 -->
         <activity android:name="com.esirong.timer.activity.SettingActivity" >
         </activity>
         <!-- 设置提醒 -->
-         <activity android:name="com.esirong.timer.activity.RemindActivity" >
+        <activity android:name="com.esirong.timer.activity.RemindActivity" >
         </activity>
         <activity
             android:name="com.esirong.timer.activity.AlarmAlertActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@style/MyDialogStyle"
-           />
+            android:theme="@style/BottomViewTheme_Defalut" />
 
         <!-- ==== 服务组件配置===== -->
         <!-- 触妇器组件配置 -->
@@ -72,6 +76,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.REBOOT" />
                 <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="com.esirong.timer.receiver.AlarmInitReceiver" />
                 <action android:name="android.intent.action.DATE_CHANGED" />
             </intent-filter>
         </receiver>

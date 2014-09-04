@@ -19,6 +19,7 @@ package com.esirong.timer.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.esirong.timer.activity.AlarmAlertActivity;
@@ -34,8 +35,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         intent.setClass(context, AlarmAlertActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = intent.getExtras();
+        Long taskid = bundle.getLong(AlarmAlertActivity.TASK_KEY, -1);
+//        Long taskid = intent.getLongExtra(AlarmAlertActivity.TASK_KEY, -1);
         context.startActivity(intent);
-        L.d("", "提醒");
-        Toast.makeText(context, "提醒", 0).show();
+        L.d("", "有闹钟来了提醒："+taskid);
+        Toast.makeText(context, "提醒："+taskid, 0).show();
     }
 }

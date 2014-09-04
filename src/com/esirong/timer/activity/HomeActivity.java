@@ -51,22 +51,22 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private View typeTaskPanel3;
 	private View typeTaskPanel4;
 	
+	
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
-		setContentView(R.layout.activity_home);
-		dao = new SummaryImpl();
-		initActionBar();
-		initView();
-		initData();
-		setOnListener();
+	protected void onCreate(Bundle bundle) {
+	    super.onCreate(bundle);
+        setContentView(R.layout.activity_home);
+        dao = new SummaryImpl();
+        initActionBar();
+        initView();
+        initData();
+        setOnListener();
 
-		DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"notes-db", null);
-		db = helper.getReadableDatabase();
-		daoMaster = new DaoMaster(db);
-		daoSession = daoMaster.newSession();
-		taskDao = daoSession.getTaskDao();
-		
+        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"notes-db", null);
+        db = helper.getReadableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        taskDao = daoSession.getTaskDao();
 	}
 	
 	private void initActionBar() {

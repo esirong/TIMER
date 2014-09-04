@@ -198,7 +198,6 @@ public class MainActivity extends SherlockFragmentActivity implements OnClickLis
 
 	@Override
 	public void onPageSelected(int arg0) {
-		// TODO Auto-generated method stub
 
 	}
 	

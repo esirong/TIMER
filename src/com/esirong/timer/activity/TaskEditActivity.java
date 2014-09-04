@@ -430,6 +430,7 @@ public class TaskEditActivity extends FragmentActivity implements
 				cal.getTimeInMillis());
 		timePicker.setTitle("提醒时间");
 		timePicker.setIcon(R.drawable.time_flag);
+		timePicker.set24HourView(true);
 		timePicker.setOnDateTimeSetListener(new OnDateTimeSetListener() {
 
 			@Override
@@ -445,7 +446,8 @@ public class TaskEditActivity extends FragmentActivity implements
 					//设定提醒
 				}
                 Intent sender = new Intent(instance, com.esirong.timer.receiver.AlarmReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, sender, 0);
+//                sender.putExtra(AlarmAlertActivity.TASK_KEY, mTask.getId());
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, sender, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager alermManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alermManager.set(AlarmManager.RTC_WAKEUP, date, pendingIntent);
 			}
@@ -463,6 +465,7 @@ public class TaskEditActivity extends FragmentActivity implements
 		DateTimePickerDialog timePicker = new DateTimePickerDialog(instance,
 				cal.getTimeInMillis());
 		timePicker.setTitle("结束时间");
+		timePicker.set24HourView(true);
 		timePicker.setIcon(R.drawable.time_flag);
 		timePicker.setOnDateTimeSetListener(new OnDateTimeSetListener() {
 
@@ -481,6 +484,7 @@ public class TaskEditActivity extends FragmentActivity implements
 		DateTimePickerDialog timePicker = new DateTimePickerDialog(instance,
 				cal.getTimeInMillis());
 		timePicker.setTitle("开始时间");
+		timePicker.set24HourView(true);
 		timePicker.setIcon(R.drawable.time_flag);
 		timePicker.setOnDateTimeSetListener(new OnDateTimeSetListener() {
 

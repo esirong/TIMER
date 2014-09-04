@@ -1,4 +1,5 @@
-﻿package com.esirong.timer.activity;
+﻿
+package com.esirong.timer.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,7 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.esirong.timer.R;
+import com.esirong.timer.receiver.AlarmInitReceiver;
 import com.esirong.timer.util.AppUpdateUtil;
 import com.esirong.timer.util.L;
 import com.esirong.timer.util.NetWorkUtil;
@@ -33,6 +36,7 @@ public class SplashActivity extends Activity {
 	private static final int GO_MAIN = 0;
 	private static final int GO_GUIDE = 1;
 	private boolean isFirstIn;
+	private String INIT_ALERT=AlarmInitReceiver.ACTION_INIT_ALERT;
 
 	private TextView mVersionNameText;
 
@@ -40,6 +44,7 @@ public class SplashActivity extends Activity {
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+		
 			switch (msg.what) {
 			case GO_MAIN:
 				goHome();
@@ -57,6 +62,8 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_splash);
+		Intent intent = new Intent(INIT_ALERT);
+		sendBroadcast(intent);
 		init();
 		// 初始化数据
 		initData();
@@ -67,6 +74,9 @@ public class SplashActivity extends Activity {
 
 	}
 
+	/**
+	 * 检测软件版本
+	 */
 	private void checkVer() {
 		if (!NetWorkUtil.isNetworkConnected(getApplicationContext())) {
 			return;
@@ -91,7 +101,6 @@ public class SplashActivity extends Activity {
 	 * 检测网络
 	 */
 	private void checkNetWork() {
-		// TODO
 		if (!NetWorkUtil.isNetworkConnected(getApplicationContext())) {
 			Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
 		}

@@ -12,30 +12,28 @@ import android.os.Environment;
 import android.util.Log;
 
 /**
- * ����־�ļ�����ģ��ֿɿؿ��ص���־����
- * <P>Ӧ���򷢲�ʱ���뽫��־���ر�Ϊfalse;
  * @author huangrongcai
  */
 public class L {
-	private static Boolean MYLOG_SWITCH=true; // ��־�ļ��ܿ���
-	private static Boolean MYLOG_WRITE_TO_FILE=false;// ��־д���ļ�����
-	private static char MYLOG_TYPE='v';// ������־���ͣ�w���ֻ����澯��Ϣ�ȣ�v������������Ϣ
+	private static Boolean MYLOG_SWITCH=true;
+	private static Boolean MYLOG_WRITE_TO_FILE=false;
+	private static char MYLOG_TYPE='v';
 	private static String MYLOG_PATH_SDCARD_DIR=Environment.getExternalStorageDirectory().getAbsolutePath();// ��־�ļ���sdcard�е�·��
-	private static int SDCARD_LOG_FILE_SAVE_DAYS = 1;// sd������־�ļ�����ౣ������
-	private static String MYLOGFILEName = "Log.txt";// �����������־�ļ����
+	private static int SDCARD_LOG_FILE_SAVE_DAYS = 1;
+	private static String MYLOGFILEName = "Log.txt";
 	private static SimpleDateFormat myLogSdf = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");// ��־�������ʽ
+			"yyyy-MM-dd HH:mm:ss");
 	private static SimpleDateFormat logfile = new SimpleDateFormat("yyyy-MM-dd");// ��־�ļ���ʽ
 
-	public static void w(String tag, Object msg) { // ������Ϣ
+	public static void w(String tag, Object msg) { 
 		log(tag, msg.toString(), 'w');
 	}
 
-	public static void e(String tag, Object msg) { // ������Ϣ
+	public static void e(String tag, Object msg) { 
 		log(tag, msg.toString(), 'e');
 	}
 
-	public static void d(String tag, Object msg) {// ������Ϣ
+	public static void d(String tag, Object msg) {
 		log(tag, msg.toString(), 'd');
 	}
 
@@ -87,11 +85,9 @@ public class L {
 	}
 
 	/**
-	 * ����־�ļ���д����־
-	 * 
 	 * @return
 	 * **/
-	private static void writeLogtoFile(String mylogtype, String tag, String text) {// �½������־�ļ�
+	private static void writeLogtoFile(String mylogtype, String tag, String text) {
 		Date nowtime = new Date();
 		String needWriteFiel = logfile.format(nowtime);
 		String needWriteMessage = myLogSdf.format(nowtime) + "    " + mylogtype
@@ -103,7 +99,7 @@ public class L {
 					+ MYLOGFILEName);
 		}
 		try {
-			FileWriter filerWriter = new FileWriter(file, true);//��������������ǲ���Ҫ�����ļ���ԭ������ݣ������и���
+			FileWriter filerWriter = new FileWriter(file, true);
 			BufferedWriter bufWriter = new BufferedWriter(filerWriter);
 			bufWriter.write(needWriteMessage);
 			bufWriter.newLine();
@@ -116,9 +112,8 @@ public class L {
 	}
 
 	/**
-	 * ɾ���ƶ�����־�ļ�
 	 * */
-	public static void delFile() {// ɾ����־�ļ�
+	public static void delFile() {
 		String needDelFiel = logfile.format(getDateBefore());
 		File file = new File(MYLOG_PATH_SDCARD_DIR, needDelFiel + MYLOGFILEName);
 		if (file.exists()) {
@@ -127,7 +122,6 @@ public class L {
 	}
 
 	/**
-	 * �õ�����ʱ��ǰ�ļ������ڣ������õ���Ҫɾ�����־�ļ���
 	 * */
 	private static Date getDateBefore() {
 		Date nowtime = new Date();
@@ -143,7 +137,7 @@ public class L {
 			return true;
 			}
 		else{
-			Log.w("error", "sdcardδ׼����");
+			Log.w("error", "sdcard");
 			return false;
 		}
 	}

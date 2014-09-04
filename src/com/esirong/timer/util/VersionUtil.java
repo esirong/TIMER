@@ -4,20 +4,17 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 /**
- *�汾����
- *  
- * 
+ * 版本管理
  */
 
 public class VersionUtil {
 	/**
-	 * ����
+	 * 包名
 	 */
 	private final static String PACKAGE_NAME = "";
 
 	/**
-	 * ��ȡ�� ����
-	 * 
+	 * 当前版本号
 	 * @param context
 	 * @return
 	 */
@@ -30,7 +27,7 @@ public class VersionUtil {
 	}
 
 	/**
-	 * ��ȡ�汾��
+	 * 当前版本名
 	 * 
 	 * @param context
 	 * @return
@@ -44,20 +41,20 @@ public class VersionUtil {
 	}
 
 	/**
-	 * �汾�Ƚ�
+	 * 判断是不是有新版本
 	 * @param versionName
 	 * @param currentVersionName
-	 * @return �°汾true���ɰ汾false
+	 * @return 
 	 */
 	public static boolean isNewVersion(String versionName,String currentVersionName) {
 		return versionName.compareToIgnoreCase(currentVersionName) > 0;
 
 	}
 	/**
-	 * �汾�Ƚ�
+	 * 判断是不是有新版本
 	 * @param versionName
 	 * @param currentVersionName
-	 * @return �°汾true���ɰ汾false
+	 * @return 
 	 */
 	public static boolean isNewVersion(String versionName,Context context) {
 		return versionName.compareToIgnoreCase(getCurrentVersionName(context)) > 0;
@@ -65,10 +62,10 @@ public class VersionUtil {
 	}
 
 	/**
-	 * �汾�Ƚ�
+	 * 是不是有新版本
 	 * @param versionCode
 	 * @param currentVersionCode
-	 * @return �°汾true���ɰ汾false
+	 * @return 
 	 */
 	public static boolean isNewVersion(int versionCode, int currentVersionCode) {
 		return versionCode > currentVersionCode;
@@ -76,10 +73,10 @@ public class VersionUtil {
 	}
 	
 	/**
-	 * �汾�Ƚ�
+	 * 是不是有新版本
 	 * @param versionCode
 	 * @param currentVersionCode
-	 * @return �°汾true���ɰ汾false
+	 * @return 
 	 */
 	public static boolean isNewVersion(int versionCode,Context context) {
 		return versionCode > getCurrentVersionCode(context);

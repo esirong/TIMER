@@ -66,7 +66,7 @@ public class AppUpdateUtil{
 	}
 	
 	/**
-	 * ��ȡ����Ϣ
+	 * 获取升级信息
 	 * @return
 	 */
 	public static UpdateInfo getUpdateInfo(){

@@ -20,9 +20,9 @@ import de.greenrobot.dao.query.QueryBuilder;
  * @author esirong
  *
  */
-public class AlertImpl implements AlertDao {
+public class AlertDaoImpl implements AlertDao {
 	private DaoSession daoSession;
-	public AlertImpl(Context cxt){
+	public AlertDaoImpl(Context cxt){
 		DevOpenHelper helper = new DaoMaster.DevOpenHelper(cxt, "AWEEK.db",
 				null);
 		SQLiteDatabase db = helper.getWritableDatabase();
@@ -30,16 +30,29 @@ public class AlertImpl implements AlertDao {
 		daoSession = daoMaster.newSession();
 	}
 	@Override
-	public List<Task> findTask(long time) {
-		TaskDao dao = daoSession.getTaskDao();
-		QueryBuilder<Task> qb = dao.queryBuilder();
-		qb.where( com.esirong.timer.TaskDao
-				.Properties.Alert_at.ge(time));
-		LazyList<Task> list = qb.listLazy();
-		ArrayList<Task> tasks = new ArrayList<Task>(list);
-		return tasks;
-		
-		
-	}
+    public List<Task> findTask(long time) {
+        TaskDao dao = daoSession.getTaskDao();
+        QueryBuilder<Task> qb = dao.queryBuilder();
+        qb.where( com.esirong.timer.TaskDao
+                .Properties.Alert_at.ge(time));
+        LazyList<Task> list = qb.listLazy();
+        ArrayList<Task> tasks = new ArrayList<Task>(list);
+        return tasks;
+        
+        
+    }
+    
+    public List<Task> findTaskInAfter(long time) {
+        TaskDao dao = daoSession.getTaskDao();
+        QueryBuilder<Task> qb = dao.queryBuilder();
+        qb.where( com.esirong.timer.TaskDao
+                .Properties.Alert_at.ge(time));
+        LazyList<Task> list = qb.listLazy();
+        ArrayList<Task> tasks = new ArrayList<Task>(list);
+        return tasks;
+        
+        
+    }
+    
 
 }

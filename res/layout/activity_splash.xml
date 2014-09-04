@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
+    android:background="#F0F0F0"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -22,6 +22,7 @@
                 android:layout_gravity="center" >
 
                 <ImageView
+                    android:contentDescription="图标"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/app_icon" />
@@ -40,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/version_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="4.82"
                     android:gravity="bottom"
@@ -73,6 +74,6 @@
         android:layout_centerHorizontal="true"
         android:padding="12dip"
         android:text="by esirong@qq.com 出品"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 
 </RelativeLayout>
