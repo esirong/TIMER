@@ -174,7 +174,7 @@ public class RemindActivity extends FragmentActivity implements
             if (reminder.isSelected()) {
                 convertView.setSelected(true);
                 convertView
-                        .setBackgroundResource(R.drawable.abs__ab_bottom_solid_dark_holo);
+                        .setBackgroundResource(R.drawable.btn_bg);
             } else {
                 convertView.setSelected(false);
                 convertView

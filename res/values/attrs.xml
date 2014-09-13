@@ -5,6 +5,18 @@
         <attr name="text_color" format="color" />    
             
     </declare-styleable> 
-  
+      <declare-styleable name="ReminderDatePicker">
+        <attr name="flags">
+            <!-- FLAGs: -->
+            <flag name="past" value="1" />
+            <flag name="month" value="2" />
+            <flag name="more_time" value="4" />
+            <flag name="numbers" value="8" />
+            <flag name="hide_time" value="16" />
+            <!-- MODEs: -->
+            <flag name="mode_google" value="0" />
+            <flag name="mode_everything" value="15" />
+        </attr>
+    </declare-styleable>
     
 </resources>

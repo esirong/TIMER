@@ -71,5 +71,8 @@
        <item name="android:windowBackground">@android:color/transparent</item>     
        <item name="android:backgroundDimEnabled">true</item>    
        <item name="android:windowFullscreen">false</item>    
-   </style>    
+   </style>  
+    <style name="BorderlessButton" parent="android:Widget.Button">
+        <item name="android:background">@drawable/whats_new_start_btn</item>
+    </style>  
 </resources>

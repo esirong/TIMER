@@ -1,5 +1,6 @@
 package com.esirong.timer.activity;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -36,6 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esirong.timer.Goal;
 import com.esirong.timer.Label;
@@ -49,6 +51,8 @@ import com.esirong.timer.util.Toasts;
 import com.esirong.timer.view.CalculateFragment;
 import com.esirong.timer.view.DateTimePickerDialog;
 import com.esirong.timer.view.DateTimePickerDialog.OnDateTimeSetListener;
+import com.esirong.timer.view.picker.OnDateSelectedListener;
+import com.esirong.timer.view.picker.ReminderDatePicker;
 
 /**
  * 编辑页,可增加，可修改 展示事务的信息
@@ -88,6 +92,7 @@ public class TaskEditActivity extends FragmentActivity implements
 	private TextView location_tv;
 	private TextView label_tv;
 	private TextView goal_tv;
+	 private ReminderDatePicker datePicker;
 	private View reminder;
 	private View location;
 	private View label;
@@ -149,12 +154,28 @@ public class TaskEditActivity extends FragmentActivity implements
 		delete_btn = (Button) findViewById(R.id.delete_btn);
 		modify_btn = (Button) findViewById(R.id.add_btn);
 		operation_panel.setVisibility(View.GONE);
+		
 		//
 		title = (EditText) findViewById(R.id.task_title);
 		AvatarIcon = (ImageView) findViewById(R.id.AvatarIcon);
 		startAt = findViewById(R.id.start_at);
 		endAt = findViewById(R.id.end_at);
-		start_date_at_tv = (TextView)findViewById(R.id.start_date_at_tv);
+		 datePicker = (ReminderDatePicker) findViewById(R.id.date_picker);
+		// setup listener for a date change:
+	        datePicker.setOnDateSelectedListener(new OnDateSelectedListener() {
+	            @Override
+	            public void onDateSelected(Calendar date) {
+	                mTask.setAlert_at(date.getTimeInMillis());
+	                dao.insertTask(mTask);
+	                Intent sender = new Intent(instance, com.esirong.timer.receiver.AlarmReceiver.class);
+//	                sender.putExtra(AlarmAlertActivity.TASK_KEY, mTask.getId());
+	                PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, sender, PendingIntent.FLAG_UPDATE_CURRENT);
+	                AlarmManager alermManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+	                alermManager.set(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), pendingIntent);
+	                Toast.makeText(TaskEditActivity.this, "Selected date: "+ getDateFormat().format(date.getTime()), Toast.LENGTH_SHORT).show();
+	            }
+	        });
+		 start_date_at_tv = (TextView)findViewById(R.id.start_date_at_tv);
 		start_time_at_tv = (TextView) findViewById(R.id.start_time_at_tv);
 		end_date_at_tv = (TextView) findViewById(R.id.end_date_at_tv);
 		end_time_at_tv = (TextView) findViewById(R.id.end_time_at_tv);
@@ -207,7 +228,15 @@ public class TaskEditActivity extends FragmentActivity implements
 
 	}
 
-	TextWatcher textWatcher = new TextWatcher() {
+	
+	    private java.text.DateFormat savedFormat;
+	    public java.text.DateFormat getDateFormat() {
+	        if(savedFormat == null)
+	            savedFormat = DateFormat.getDateTimeInstance();
+	        return savedFormat;
+    }
+
+    TextWatcher textWatcher = new TextWatcher() {
 
 		@Override
 		public void afterTextChanged(Editable arg0) {

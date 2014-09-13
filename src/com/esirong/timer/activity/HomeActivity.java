@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ import com.esirong.timer.db.SummaryImpl;
 import com.esirong.timer.util.Toasts;
 
 
-public class HomeActivity extends FragmentActivity implements OnClickListener {
+public class HomeActivity extends ActionBarActivity implements OnClickListener {
 	private SQLiteDatabase db;
 
 	private EditText editText;
@@ -57,7 +58,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	    super.onCreate(bundle);
         setContentView(R.layout.activity_home);
         dao = new SummaryImpl();
-        initActionBar();
+//        initActionBar();
         initView();
         initData();
         setOnListener();
