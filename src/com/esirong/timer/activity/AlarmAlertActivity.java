@@ -106,7 +106,7 @@ public class AlarmAlertActivity extends Activity implements OnClickListener,
         dao = new TaskDao2(this);
         setContentView(R.layout.activity_reminder);
         initViews();
-        bottomView.showBottomView(false); 
+//        bottomView.showBottomView(false); 
         layout = (LinearLayout) findViewById(R.id.task_bar);
         layout.setOnTouchListener(new OnTouchListener() {
 

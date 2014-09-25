@@ -103,8 +103,15 @@ public class DateTimePicker extends FrameLayout {
                     isDateChanged = true;
                 }
             }
-            int newHour = mHourSpinner.getValue() % HOURS_IN_HALF_DAY + (mIsAm ? 0 : HOURS_IN_HALF_DAY);
-            mDate.set(Calendar.HOUR_OF_DAY, newHour);
+            //FIXED 选择时错误显示
+            if(!mIs24HourView){
+                int newHour = mHourSpinner.getValue() % HOURS_IN_HALF_DAY + (mIsAm ? 0 : HOURS_IN_HALF_DAY);
+                
+                mDate.set(Calendar.HOUR_OF_DAY, newHour); 
+            }else{
+                mDate.set(Calendar.HOUR_OF_DAY, mHourSpinner.getValue()); 
+            }
+           
             onDateTimeChanged();
             if (isDateChanged) {
                 setCurrentYear(cal.get(Calendar.YEAR));
